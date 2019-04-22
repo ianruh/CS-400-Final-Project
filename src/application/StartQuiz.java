@@ -3,19 +3,15 @@ package application;
 
 import java.util.function.UnaryOperator;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -27,8 +23,8 @@ public class StartQuiz extends Main {
 		Label title = new Label("Quiz Options:");
 
 		// Topics List
-		ObservableList<String> topics = FXCollections.observableArrayList("Topic 1", "Topic 2", "Topic 3", "Topic 4",
-				"Topic 5");
+		ObservableList<String> topics = FXCollections.observableArrayList("Topic 1", "Topic 2", "Topic 3",
+				"Topic 4", "Topic 5");
 
 		// Topics drop-down
 		Label topicsLabel = new Label("Topic:");
