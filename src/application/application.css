@@ -1,1 +1,58 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.question-card {
+    -fx-padding: 30px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+	-fx-background-color: #f4f4f4;
+	-fx-background-radius: 10;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.question-content {
+	-fx-padding: 0px 0px 0px 0px;
+}
+
+.question-text {
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+	-fx-text-fill: #333333;
+	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+	-fx-wrap-text: true;
+}
+
+.answer-button {
+	 -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);
+	 -fx-background-color: #ffffff;
+	 -fx-pref-width: 800;
+	 -fx-alignment: LEFT;
+}
+
+.topic-label {
+	-fx-text-fill: #7c7c7c;
+}
+
+.incorrect-label {
+	-fx-padding: 10px;
+	-fx-background-color: #d12b2b;
+	-fx-background-radius: 5;
+	-fx-text-fill: white;
+	-fx-pref-width: 800;
+}
+
+.correct-label {
+	-fx-padding: 10px;
+	-fx-background-color: #36bc27;
+	-fx-background-radius: 5;
+	-fx-text-fill: black;
+	-fx-pref-width: 800;
+}
+
+.quiz-container {
+	-fx-padding: 30px;
+}
+
+.quiz-title {
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+}
