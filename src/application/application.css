@@ -25,7 +25,13 @@
 	 -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);
 	 -fx-background-color: #ffffff;
 	 -fx-pref-width: 800;
-	 -fx-alignment: LEFT;
+	 -fx-alignment: left;
+}
+
+.answer-button:hover {
+    -fx-background-color: #ededed;
+    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.03;
 }
 
 .topic-label {
