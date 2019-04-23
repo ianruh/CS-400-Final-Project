@@ -14,7 +14,7 @@ public class AddQuestion extends VBox{
   ObservableList<String> trueOrFalse =
       FXCollections.observableArrayList("True", "False");
   
-  public AddQuestion() {
+  public AddQuestion(AddQuestionInterface backHandler) {
     // creates our vertical box
     super(10); 
     
@@ -41,10 +41,12 @@ public class AddQuestion extends VBox{
     
     // creates 2nd to bottom button
     Button b2 = new Button("Submit Question");
+    b2.setOnMouseClicked(e -> /* this should go back to main menu*/);
     super.getChildren().add(b2);
     
     // creates bottom button
     Button b3 = new Button("Back");
+    b3.setOnMouseClicked(e -> backHandler.handleBack());
     super.getChildren().add(b3);
  
   }  
