@@ -1,6 +1,8 @@
 package application;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -47,6 +49,7 @@ public class MainMenu extends BorderPane {
 		Button buttonStartQuiz = new Button("Start Quiz");
 		
 		buttonStartQuiz.setOnMouseClicked(e -> this.startQuizPressed());
+		buttonAddQuestion.setOnMouseClicked(e -> this.newQuestionPressed());
 		
 		Button buttonExit = new Button("Exit");
 		VBox vbox = new VBox(buttonLoadImport, buttonAddQuestion, buttonStartQuiz, buttonExit);
@@ -63,18 +66,28 @@ public class MainMenu extends BorderPane {
   }
   
   private void startQuizPressed() {
-	  FinishQuizHandler finishHandler = () -> addComponents();
+	  EventHandler finishHandler = () -> addComponents();
 	  
-	  BeginQuizHandler beginHandler = new BeginQuizHandler() {
+	  EventHandler beginHandler = new EventHandler() {
 		@Override
-		public void handleBegin() {
-			BasicQuiz quiz = new BasicQuiz(QuestionBank.getQuestions(), finishHandler);
+		public void handleEvent() {
+			BasicQuiz quiz = new BasicQuiz(QuestionBank.getQuestions(), finishHandler, () -> {
+				StartQuiz startQuiz = new StartQuiz(this, finishHandler);
+				setCenter(startQuiz.returnScene());
+			});
 			setCenter(quiz);
 		}  
 	  };
-		  
 	  
 	  StartQuiz startQuiz = new StartQuiz(beginHandler, finishHandler);
 	  this.setCenter(startQuiz.returnScene());
+  }
+  
+  private void newQuestionPressed() {
+	  EventHandler finishHandler = () -> addComponents();
+	  
+	  ObservableList<String> weekDays =
+		      FXCollections.observableArrayList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
+	  this.setCenter(new PickTopicAndQuestion(weekDays, finishHandler));
   }
 }

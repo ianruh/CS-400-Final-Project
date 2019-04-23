@@ -18,7 +18,7 @@ public class BasicQuiz extends ScrollPane implements Quiz {
 	 * @author ianruh
 	 *
 	 */
-	private class ResultsBox extends HBox {
+	private class ResultsBox extends VBox {
 		
 		/**
 		 * Default constructor
@@ -26,21 +26,43 @@ public class BasicQuiz extends ScrollPane implements Quiz {
 		 * @param numWrong Number of questions answered wrong.
 		 * @param handler Handler for finishing the quiz.
 		 */
-		private ResultsBox(int numCorrect, int total, FinishQuizHandler handler) {
-			super();
+		private ResultsBox(int numCorrect, int total,
+				EventHandler finishHandler,
+				EventHandler newQuizHandler,
+				EventHandler saveQuizHandler) {
+			super(10);
+			HBox labels = new HBox(10);
+			HBox buttons = new HBox(10);
+			
 			Label percentageLabel = new Label("Percentage: " + (((double)numCorrect / (double)total)*100) + "%");
 			Label numRightWrongLabel = new Label(numCorrect + "/" + total);
 			Button finishButton = new Button("Finish");
+			Button newQuizButton = new Button("Make New Quiz");
+			Button saveQuizButton = new Button("Save Quiz");
 			
 			percentageLabel.getStyleClass().add("finish-quiz-items");
 			numRightWrongLabel.getStyleClass().add("finish-quiz-items");
 			finishButton.getStyleClass().add("finish-quiz-items");
+			newQuizButton.getStyleClass().add("finish-quiz-items");
+			saveQuizButton.getStyleClass().add("finish-quiz-items");
 			
-			finishButton.setOnMouseClicked(e -> handler.handleFinish());
+			buttons.getStyleClass().add("quiz-finish-buttons");
 			
-			this.getChildren().add(percentageLabel);
-			this.getChildren().add(numRightWrongLabel);
-			this.getChildren().add(finishButton);
+			finishButton.setOnMouseClicked(e -> finishHandler.handleEvent());
+			newQuizButton.setOnMouseClicked(e -> newQuizHandler.handleEvent());
+			saveQuizButton.setOnMouseClicked(e -> saveQuizHandler.handleEvent());
+			
+			labels.getChildren().add(percentageLabel);
+			labels.getChildren().add(numRightWrongLabel);
+			
+			buttons.getChildren().add(finishButton);
+			buttons.getChildren().add(newQuizButton);
+			buttons.getChildren().add(saveQuizButton);
+			
+			this.getStyleClass().add("question-card");
+			
+			this.getChildren().add(labels);
+			this.getChildren().add(buttons);
 		}
 	}
 	
@@ -54,15 +76,17 @@ public class BasicQuiz extends ScrollPane implements Quiz {
 	// The vertical box used for the layout
 	private VBox verticalBox;
 	
-	// A storage reference for the finish handler
-	private FinishQuizHandler finishHandler;
+	// A storage reference for the event handlers
+	private EventHandler finishHandler;
+	private EventHandler newQuizHandler;
+	
 	
 	/**
 	 * Constructor for a quiz.
 	 * @param questions ArrayList of questions to put in the quiz.
 	 * @param finishHandler Handler for what to do when the quiz is completed.
 	 */
-	public BasicQuiz(ArrayList<BasicQuestion> questions, FinishQuizHandler finishHandler) {
+	public BasicQuiz(ArrayList<BasicQuestion> questions, EventHandler finishHandler, EventHandler newQuizHandler) {
 		super();
 		
 		//Initialize the vertical box
@@ -73,6 +97,7 @@ public class BasicQuiz extends ScrollPane implements Quiz {
 		
 		// Store the handler
 		this.finishHandler = finishHandler;
+		this.newQuizHandler = newQuizHandler;
 		
 		// Add the Quiz title
 		Label quizLabel = new Label("Quiz");
@@ -127,7 +152,20 @@ public class BasicQuiz extends ScrollPane implements Quiz {
 					this.numWrong++;
 				}
 			}
-			ResultsBox resultsBox = new ResultsBox(this.numCorrect, (this.numWrong + this.numCorrect), this.finishHandler);
+			
+			// Place holder until we figure out what it should do.
+			EventHandler saveQuizHandler = () -> {
+				System.out.println("Save Quiz Pressed");
+				this.finishHandler.handleEvent();
+			};
+			
+			
+			ResultsBox resultsBox = new ResultsBox(this.numCorrect, 
+					(this.numWrong + this.numCorrect), 
+					this.finishHandler, 
+					this.newQuizHandler, 
+					saveQuizHandler);
+			
 			this.verticalBox.getChildren().add(resultsBox);
 		}
 	}

@@ -17,10 +17,10 @@ import javafx.scene.layout.VBox;
 
 public class StartQuiz extends Main {
 	
-	private FinishQuizHandler finishHandler;
-	private BeginQuizHandler beginHandler;
+	private EventHandler finishHandler;
+	private EventHandler beginHandler;
 	
-	public StartQuiz(BeginQuizHandler beginHandler, FinishQuizHandler finishHandler) {
+	public StartQuiz(EventHandler beginHandler, EventHandler finishHandler) {
 		super();
 		this.finishHandler = finishHandler;
 		this.beginHandler = beginHandler;
@@ -66,12 +66,12 @@ public class StartQuiz extends Main {
 
 		// Begin Button
 		Button beginButton = new Button("Begin Quiz");
-		beginButton.setOnMouseClicked(e -> this.beginHandler.handleBegin());
+		beginButton.setOnMouseClicked(e -> this.beginHandler.handleEvent());
 		beginButton.setPrefWidth(156);
 
 		// Back Button
 		Button backButton = new Button("Back");
-		backButton.setOnMouseClicked(e -> this.finishHandler.handleFinish());
+		backButton.setOnMouseClicked(e -> this.finishHandler.handleEvent());
 		backButton.setPrefWidth(156);
 
 		// Stack Pane

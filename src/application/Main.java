@@ -8,12 +8,6 @@ import javafx.scene.Scene;
 
 public class Main extends Application {
   
-  //MainMenu mainMenu = new MainMenu();
-  ObservableList<String> weekDays =
-      FXCollections.observableArrayList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
-  
-  PickTopicAndQuestion pickTopicsPage = new PickTopicAndQuestion(weekDays);
-  
 	@Override
 	public void start(Stage primaryStage) {
 		try {

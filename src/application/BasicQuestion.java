@@ -33,7 +33,7 @@ public class BasicQuestion extends VBox implements Question {
 	protected boolean answeredCorrectly = false;
 	
 	// Default answer handler
-	QuestionAnsweredHandler handler = () -> System.out.println("Question answered handler not set.");
+	EventHandler handler = () -> System.out.println("Question answered handler not set.");
 	
 	/**
 	 * Constructor for a basic question
@@ -66,7 +66,7 @@ public class BasicQuestion extends VBox implements Question {
 	 * Used to allow each quiz object to add a custom handler to the question.
 	 * @param handler to handle when a question is answered.
 	 */
-	protected void addAnsweredHandler(QuestionAnsweredHandler handler) {
+	protected void addAnsweredHandler(EventHandler handler) {
 		this.handler = handler;
 	}
 	
@@ -117,7 +117,7 @@ public class BasicQuestion extends VBox implements Question {
 					answeredCorrectly = false;
 					showAnswerCheckAlert();
 				}
-				handler.questionAnswered();
+				handler.handleEvent();
 			});
 			button.getStyleClass().add("answer-button");
 			this.getChildren().add(button);

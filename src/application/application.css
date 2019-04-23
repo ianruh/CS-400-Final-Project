@@ -60,3 +60,7 @@
 .finish-quiz-items {
 	-fx-padding: 5px;
 }
+
+.finish-quiz-buttons {
+	-fx-alignment: right;
+}

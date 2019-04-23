@@ -10,12 +10,14 @@ import javafx.scene.layout.VBox;
 public class PickTopicAndQuestion extends VBox {
 
   private ObservableList topics;
+  private EventHandler finishHandler;
   
   
-  public PickTopicAndQuestion(ObservableList topics) {
+  public PickTopicAndQuestion(ObservableList topics, EventHandler finishHandler) {
     // creates my vertical box
     super(10);
     this.topics = topics;
+    this.finishHandler = finishHandler;
     addComponents(topics);
   }
   
@@ -58,7 +60,7 @@ public class PickTopicAndQuestion extends VBox {
     // create a button to cancel "operations"
     Button b3 = new Button("Cancel");
     b3.setMinWidth(100);
-//    b3.setOnMouseClicked(/* return back to main menu*/);
+    b3.setOnMouseClicked(e -> this.finishHandler.handleEvent());
     super.getChildren().add(b3);
   }
   
