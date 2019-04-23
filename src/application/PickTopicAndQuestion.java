@@ -45,20 +45,20 @@ public class PickTopicAndQuestion extends VBox {
     // create a button to load an image
     Button b1 = new Button("Load Image");
     b1.setMinWidth(100);
-    b1.setOnMouseClicked(/* go to save / load screen*/);
+//    b1.setOnMouseClicked(/* go to save / load screen*/);
     super.getChildren().add(b1);
     
     
     // create a button the edit ansers
     Button b2 = new Button("Edit Answers");
     b2.setMinWidth(100);
-    b2.setOnMouseClicked(/* some how edit answers*/);
+//    b2.setOnMouseClicked(/* some how edit answers*/);
     super.getChildren().add(b2);
     
     // create a button to cancel "operations"
     Button b3 = new Button("Cancel");
     b3.setMinWidth(100);
-    b3.setOnMouseClicked(/* return back to main menu*/);
+//    b3.setOnMouseClicked(/* return back to main menu*/);
     super.getChildren().add(b3);
   }
   
