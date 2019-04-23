@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 
 
-public class Main extends Application {
+public class MainIan extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -51,7 +52,16 @@ public class Main extends Application {
 			questions.add(question2);
 			questions.add(question3);
 			
-			BasicQuiz quiz = new BasicQuiz(questions);
+			
+			
+			BasicQuiz quiz = new BasicQuiz(questions, new FinishQuizHandler() {
+
+				@Override
+				public void handleFinish() {
+					root.setCenter(new Label("You finished."));
+				}
+				
+			});
 			
 			root.setCenter(quiz);
 			

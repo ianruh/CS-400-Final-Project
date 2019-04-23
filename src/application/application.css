@@ -56,3 +56,7 @@
 	-fx-font-size: 24px;
 	-fx-font-weight: bold;
 }
+
+.finish-quiz-items {
+	-fx-padding: 5px;
+}

@@ -16,6 +16,12 @@ public class BasicQuestion extends VBox implements Question {
 	String imageSource;
 	boolean answered = false;
 	boolean answeredCorrectly = false;
+	QuestionAnsweredHandler handler = new QuestionAnsweredHandler() {
+		@Override
+		public void questionAnswered() {
+			System.out.println("Question answered handler not set.");
+		}
+	};
 	
 	/**
 	 * Constructor for a basic question
@@ -35,6 +41,14 @@ public class BasicQuestion extends VBox implements Question {
 		addComponents();
 		this.getStyleClass().add("question-card");
 		this.setMaxWidth(500);
+	}
+	
+	/**
+	 * Used to allow each quiz object to add a custom handler to the question.
+	 * @param handler to handle when a question is answered.
+	 */
+	protected void addAnsweredHandler(QuestionAnsweredHandler handler) {
+		this.handler = handler;
 	}
 	
 	/**
@@ -81,6 +95,7 @@ public class BasicQuestion extends VBox implements Question {
 						answeredCorrectly = false;
 						showAnswerCheckAlert();
 					}
+					handler.questionAnswered();
 				}
 				
 			});
