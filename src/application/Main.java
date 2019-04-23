@@ -8,13 +8,12 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-public class Main1 extends Application {
+public class Main extends Application {
   
-  ObservableList<String> trueOrFalse =
-      FXCollections.observableArrayList("True", "False");
-  
-  AddQuestion addQ = new AddQuestion();
-  PickTopicAndQuestion pQ = new PickTopicAndQuestion(trueOrFalse);
+  //MainMenu mainMenu = new MainMenu();
+  ObservableList<String> weekDays =
+      FXCollections.observableArrayList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
+  PickTopicAndQuestion pQ = new PickTopicAndQuestion(weekDays);
   
 	@Override
 	public void start(Stage primaryStage) {
