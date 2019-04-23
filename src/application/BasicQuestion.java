@@ -1,27 +1,39 @@
 package application;
-
 import java.util.ArrayList;
-
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+/**
+ * A BasicQuestion implements the question interface and extends a VBox.
+ * @author ianruh
+ *
+ */
 public class BasicQuestion extends VBox implements Question {
 	
-	ArrayList<String> answers;
-	int correctAnswer;
-	String question;
-	String topic;
-	String imageSource;
-	boolean answered = false;
-	boolean answeredCorrectly = false;
-	QuestionAnsweredHandler handler = new QuestionAnsweredHandler() {
-		@Override
-		public void questionAnswered() {
-			System.out.println("Question answered handler not set.");
-		}
-	};
+	// Array list of the answer strings
+	private ArrayList<String> answers;
+	
+	// Index of the correct answer
+	private int correctAnswer;
+	
+	// Text of the question
+	private String question;
+	
+	// The question topic
+	private String topic;
+	
+	// The source of the image for the question if there is one.
+	private String imageSource;
+	
+	// Values to store the state of the question
+	protected boolean answered = false;
+	protected boolean answeredCorrectly = false;
+	
+	// Default answer handler
+	QuestionAnsweredHandler handler = () -> System.out.println("Question answered handler not set.");
 	
 	/**
 	 * Constructor for a basic question
@@ -32,15 +44,22 @@ public class BasicQuestion extends VBox implements Question {
 	 * @param imageSource The path to the image.
 	 */
 	public BasicQuestion(String text, ArrayList<String> answers, int correctAnswer, String topic, String imageSource) {
+		// Set spacing to 15px
 		super(15);
+		
+		// Initialize values
 		this.answers = answers;
 		this.correctAnswer = correctAnswer;
 		this.question = text;
 		this.topic = topic;
 		this.imageSource = imageSource;
-		addComponents();
+		
+		// Set properties
 		this.getStyleClass().add("question-card");
 		this.setMaxWidth(500);
+		
+		// Add all of the components
+		addComponents();
 	}
 	
 	/**
@@ -62,6 +81,9 @@ public class BasicQuestion extends VBox implements Question {
 		this(text, answers, correctAnswer, topic, null);
 	}
 	
+	/**
+	 * Utility method to add all of the components to the node.
+	 */
 	private void addComponents() {
 		// Question text
 		Label questionLabel = new Label(this.question);
@@ -80,40 +102,49 @@ public class BasicQuestion extends VBox implements Question {
 			this.getChildren().add(imageView);
 		}
 		
-		
+		// Loop through and add each answer
 		for(int i = 0; i < this.answers.size(); i++) {
+			// need to use a final in the lambda
 			final int index = i;
-			Answer newAnswer = new Answer(this.answers.get(i), ((i+1) + ". "), new AnswerHandler() {
-				@Override
-				public void handleClick() {
-					if(!answered && index == correctAnswer) {
-						answered = true;
-						answeredCorrectly = true;
-						showAnswerCheckAlert();
-					} else if(!answered) {
-						answered = true;
-						answeredCorrectly = false;
-						showAnswerCheckAlert();
-					}
-					handler.questionAnswered();
+			Button button = new Button((i+1) + ". " + this.answers.get(i) + "");
+			button.setOnMouseClicked(e -> {
+				if(!answered && index == correctAnswer) {
+					answered = true;
+					answeredCorrectly = true;
+					showAnswerCheckAlert();
+				} else if(!answered) {
+					answered = true;
+					answeredCorrectly = false;
+					showAnswerCheckAlert();
 				}
-				
+				handler.questionAnswered();
 			});
-			this.getChildren().add(newAnswer);
+			button.getStyleClass().add("answer-button");
+			this.getChildren().add(button);
 		}
 	}
 	
+	/**
+	 * Method is called when a user clicks on an answer. If it is correct, green banner,
+	 * if it is wrong, red banner.
+	 */
 	private void showAnswerCheckAlert() {
 		Label answerCheckLabel = new Label("The correct answer is: " + this.answers.get(correctAnswer));
+		
+		// Set background colors
 		if(this.answeredCorrectly) {
 			answerCheckLabel.getStyleClass().add("correct-label");
 		} else {
 			answerCheckLabel.getStyleClass().add("incorrect-label");
 		}
+		
+		// Add to the node
 		this.getChildren().add(answerCheckLabel);
 	}
 	
-
+	/**
+	 * Method used to get all of the answers from the question.
+	 */
 	@Override
 	public ArrayList<String> getAnswers() {
 		return this.answers;

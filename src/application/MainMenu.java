@@ -31,6 +31,8 @@ public class MainMenu extends BorderPane {
   private void addComponents() {
 		this.totalNumQuestions = totalNumQuestions;
 		
+		// TODO: The image doesn't work for everybody for some reason.
+		
 		//create and set the main menu background
 		//	    Image quizBackground = new Image("background3.png", 400, 400, false, true);
 		//	    BackgroundSize bSize =
@@ -61,12 +63,7 @@ public class MainMenu extends BorderPane {
   }
   
   private void startQuizPressed() {
-	  FinishQuizHandler finishHandler = new FinishQuizHandler() {
-			@Override
-			public void handleFinish() {
-				addComponents();
-			}
-	  };
+	  FinishQuizHandler finishHandler = () -> addComponents();
 	  
 	  BeginQuizHandler beginHandler = new BeginQuizHandler() {
 		@Override

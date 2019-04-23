@@ -41,7 +41,7 @@ public class AddQuestion extends VBox{
     
     // creates 2nd to bottom button
     Button b2 = new Button("Submit Question");
-    b2.setOnMouseClicked(e -> /* this should go back to main menu*/);
+//    b2.setOnMouseClicked(e -> /* this should go back to main menu*/);
     super.getChildren().add(b2);
     
     // creates bottom button

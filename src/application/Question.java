@@ -2,6 +2,11 @@ package application;
 
 import java.util.ArrayList;
 
+/**
+ * Interface that defines how class will interact with a question.
+ * @author ianruh
+ *
+ */
 public interface Question {
 	
 	/**

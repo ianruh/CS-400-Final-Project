@@ -3,10 +3,8 @@ package application;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
   
@@ -19,15 +17,13 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			// Set main page title
 			primaryStage.setTitle("Quiz Generator");
-//			BorderPane root = new BorderPane();
-//			
-//			pickTopicsPage.setAlignment(Pos.CENTER);
-//			
-//			root.setCenter(pickTopicsPage);
+			
+			// Set the layout as an instance of MainMenu
 			MainMenu mainMenu = new MainMenu(10);
 
-			
+			// Open the scene
 			Scene scene = new Scene(mainMenu ,600,900);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);

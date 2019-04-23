@@ -2,6 +2,11 @@ package application;
 
 import java.util.ArrayList;
 
+/**
+ * Class that stores all of the questions in the quiz generator.
+ * @author ianruh
+ *
+ */
 public class QuestionBank {
 	/**
 	 * Get some sample questions.
