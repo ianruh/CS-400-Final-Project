@@ -123,7 +123,8 @@ public class BasicQuiz extends ScrollPane implements Quiz {
 	 * Adds all of the questions to the vertical box.
 	 */
 	private void addQuestion() {
-		this.questions.get(this.numQuestionsShowing).addAnsweredHandler(() -> checkAllAnswered());
+		final int INDEX = this.numQuestionsShowing;
+		this.questions.get(this.numQuestionsShowing).addAnsweredHandler(() -> checkAllAnswered(INDEX));
 		this.verticalBox.getChildren().add(this.questions.get(this.numQuestionsShowing));
 		this.numQuestionsShowing++;
 	}
@@ -139,9 +140,9 @@ public class BasicQuiz extends ScrollPane implements Quiz {
 	/**
 	 * Check if all of the questions have been answered, and if so, show the results.
 	 */
-	private void checkAllAnswered() {
+	private void checkAllAnswered(int index) {
 		// Check that all the questions have been answered.
-		boolean allAnswered = this.questions.size() == this.numQuestionsShowing;
+		boolean allAnswered = this.questions.size()-1 == index;
 		
 		// If all have been answered, display the results box
 		if(allAnswered) {
@@ -167,7 +168,7 @@ public class BasicQuiz extends ScrollPane implements Quiz {
 					saveQuizHandler);
 			
 			this.verticalBox.getChildren().add(resultsBox);
-		} else {
+		} else if(index == this.numQuestionsShowing-1) {
 			this.addQuestion();
 		}
 	}
