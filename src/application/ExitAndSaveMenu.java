@@ -1,13 +1,8 @@
 package application;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Optional;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -26,7 +21,7 @@ public class ExitAndSaveMenu extends BorderPane {
   
 
   
-  public ExitAndSaveMenu(EventHandler cancelHandler, Stage primaryStage) {
+  public ExitAndSaveMenu(EventHandler cancelHandler) {
     this.cancelHandler = cancelHandler;
 
     
@@ -37,25 +32,12 @@ public class ExitAndSaveMenu extends BorderPane {
     exitPrompt.setTextAlignment(TextAlignment.CENTER);
     Button buttonExitAndSave = new Button("Save & Exit");
     
-    buttonExitAndSave.setOnAction(new javafx.event.EventHandler<ActionEvent>() {
-    	  
-        @Override
-        public void handle(ActionEvent event) {
-            FileChooser fileChooser = new FileChooser();
-
-            //Set extension filter
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
-            fileChooser.getExtensionFilters().add(extFilter);
-            
-            //Show save file dialog
-            File file = fileChooser.showSaveDialog(primaryStage);
-            
-            if(file != null){
-                SaveFile("Example", file);
-                Platform.exit();
-                System.exit(0);
-            }
-        }
+    buttonExitAndSave.setOnAction((event) -> {
+    	EventHandler exitHandler = () -> {
+        	Platform.exit();
+            System.exit(0);
+        };
+        ImportExportUtility.saveDialogue("Example", exitHandler);
     });
     
     Button buttonExitNoSave = new Button("Exit without Saving");
@@ -80,19 +62,5 @@ public class ExitAndSaveMenu extends BorderPane {
     vbox.setSpacing(40);
     this.setCenter(vbox);
   }
-  
-  private void SaveFile(String content, File file){
-      try {
-          FileWriter fileWriter = null;
-           
-          fileWriter = new FileWriter(file);
-          fileWriter.write(content);
-          fileWriter.close();
-      } catch (IOException ex) {
-          ex.printStackTrace();
-      }
-       
-  }
-
   
 }

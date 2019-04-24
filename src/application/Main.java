@@ -15,7 +15,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Quiz Generator");
 			
 			// Set the layout as an instance of MainMenu
-			MainMenu mainMenu = new MainMenu(primaryStage);
+			MainMenu mainMenu = new MainMenu();
 
 			// Open the scene
 			Scene scene = new Scene(mainMenu ,900,900);

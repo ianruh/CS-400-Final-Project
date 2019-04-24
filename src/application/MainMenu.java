@@ -22,11 +22,9 @@ public class MainMenu extends BorderPane {
 
   // class field int that stores the number of questions in the questionBank
   int totalNumQuestions;
-  Stage primaryStage;
 
-  public MainMenu(Stage primaryStage) {
+  public MainMenu() {
     this.totalNumQuestions = 10; //TODO Fix
-    this.primaryStage = primaryStage;
     addComponents();
   }
   
@@ -100,7 +98,7 @@ public class MainMenu extends BorderPane {
   
   private void exitPressed() {
     EventHandler cancelHandler = () -> addComponents();    
-    this.setCenter(new ExitAndSaveMenu(cancelHandler, this.primaryStage));
+    this.setCenter(new ExitAndSaveMenu(cancelHandler));
     
   }
   
