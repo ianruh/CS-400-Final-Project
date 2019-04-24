@@ -22,14 +22,13 @@ public class ImportQuestions extends BorderPane{
     // create an load prompt asking to input the file name
     Label loadPrompt =
         new Label("Load: "
-            + "\n Please enter the name and path of the JSON "
-            + "\n file of questions you would like to import"
-            + "\n \n example: Users/Computer/Desktop/OrganicChemistryChapter1.json");
+            + "\n Please enter the name of the JSON "
+            + "\n file of questions you would like to import");
     //ption to bold the label text
     //loadPrompt.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
     loadPrompt.setTextAlignment(TextAlignment.CENTER);
     TextArea fileName = new TextArea();
-    Button buttonLoad = new Button("Load");
+    Button buttonLoad = new Button("Import");
     Button buttonCancel = new Button("Cancel");      
    
     VBox vbox = new VBox(loadPrompt, fileName, buttonLoad, buttonCancel);
