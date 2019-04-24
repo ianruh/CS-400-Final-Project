@@ -55,7 +55,9 @@ public class StartQuiz extends Main {
 		VBox topicList = new VBox();
 		topicList.setAlignment(Pos.CENTER);
 		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setPrefSize(256, 96);	
+		scrollPane.setMaxHeight(96);
+		scrollPane.setMaxWidth(256);
+		//scrollPane.setPrefSize(256, 96);	
 		
 		for (int i = 0; i < topics.length; i++) {
 		  CheckBox topicBox = new CheckBox(topics[i]);
