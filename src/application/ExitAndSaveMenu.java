@@ -25,12 +25,23 @@ public class ExitAndSaveMenu extends BorderPane {
     this.cancelHandler = cancelHandler;
 
     
-    // create an exit prompt asking to save
+    // Exit Title
+    Label exitTitle = new Label("Exiting Application\n ");
+    exitTitle.setScaleX(3.0);
+    exitTitle.setScaleY(3.0);
+    exitTitle.setAlignment(Pos.CENTER);
+    
+    
+    // Exit prompt
     Label exitPrompt =
-        new Label("Exit: "
-            + "\n Do you want to save your questions?");
+        new Label("Do you want to save your questions?");
+    exitPrompt.setScaleX(1.5);
+    exitPrompt.setScaleY(1.5);
     exitPrompt.setTextAlignment(TextAlignment.CENTER);
+    
+    // Save & Exit Button
     Button buttonExitAndSave = new Button("Save & Exit");
+    buttonExitAndSave.setPrefSize(256, 56);
     
     buttonExitAndSave.setOnAction((event) -> {
     	EventHandler exitHandler = () -> {
@@ -40,7 +51,9 @@ public class ExitAndSaveMenu extends BorderPane {
         ImportExportUtility.saveDialogue("Example", exitHandler);
     });
     
+    // Exit w/o Saving Button
     Button buttonExitNoSave = new Button("Exit without Saving");
+    buttonExitNoSave.setPrefSize(256, 56);
     
     buttonExitNoSave.setOnMouseClicked(e -> {
     	Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -54,10 +67,13 @@ public class ExitAndSaveMenu extends BorderPane {
     	}
     });
     
+    // Cancel Button
     Button buttonCancel = new Button("Cancel");  
+    buttonCancel.setPrefSize(256, 56);
+    
     buttonCancel.setOnMouseClicked(e -> this.cancelHandler.handleEvent());
    
-    VBox vbox = new VBox(exitPrompt, buttonExitAndSave, buttonExitNoSave, buttonCancel);
+    VBox vbox = new VBox(exitTitle, exitPrompt, buttonExitAndSave, buttonExitNoSave, buttonCancel);
     vbox.setAlignment(Pos.CENTER);
     vbox.setSpacing(40);
     this.setCenter(vbox);
