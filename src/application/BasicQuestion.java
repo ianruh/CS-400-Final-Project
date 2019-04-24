@@ -129,12 +129,14 @@ public class BasicQuestion extends VBox implements Question {
 	 * if it is wrong, red banner.
 	 */
 	private void showAnswerCheckAlert() {
-		Label answerCheckLabel = new Label("The correct answer is: " + this.answers.get(correctAnswer));
+		Label answerCheckLabel;
 		
 		// Set background colors
 		if(this.answeredCorrectly) {
+			answerCheckLabel = new Label("Hooray!!!");
 			answerCheckLabel.getStyleClass().add("correct-label");
 		} else {
+			answerCheckLabel = new Label("Whoopsies :(");
 			answerCheckLabel.getStyleClass().add("incorrect-label");
 		}
 		

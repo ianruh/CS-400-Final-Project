@@ -1,6 +1,5 @@
 package application;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -23,11 +22,12 @@ public class MainMenu extends BorderPane {
 
   // class field int that stores the number of questions in the questionBank
   int totalNumQuestions;
+  Stage primaryStage;
 
-  public MainMenu(int totalNumQuestions) {
-    this.totalNumQuestions = totalNumQuestions;
+  public MainMenu(Stage primaryStage) {
+    this.totalNumQuestions = 10; //TODO Fix
+    this.primaryStage = primaryStage;
     addComponents();
-
   }
   
   private void addComponents() {
@@ -99,8 +99,8 @@ public class MainMenu extends BorderPane {
   }
   
   private void exitPressed() {
-    EventHandler finishHandler = () -> addComponents();    
-    this.setCenter(new ExitAndSaveMenu(finishHandler));
+    EventHandler cancelHandler = () -> addComponents();    
+    this.setCenter(new ExitAndSaveMenu(cancelHandler, this.primaryStage));
     
   }
   
