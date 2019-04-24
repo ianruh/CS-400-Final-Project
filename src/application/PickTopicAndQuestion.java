@@ -1,11 +1,13 @@
 package application;
 
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 
 public class PickTopicAndQuestion extends VBox {
 
@@ -23,9 +25,23 @@ public class PickTopicAndQuestion extends VBox {
   
   private void addComponents(ObservableList topics) {
     this.getChildren().clear();
+    
+    
+    Label pickTopicInstructions =
+        new Label("First choose the topic you would like this question to be organized under by \n\n"
+            + "\n 1) SELECT A EXISTING topic from the below drop down menu of available topics \n\n");
+    pickTopicInstructions.setTextAlignment(TextAlignment.CENTER);
+    super.getChildren().add(pickTopicInstructions);
+    
     // creates a combo box that holds all current topics
     ComboBox<String> comboBox = new ComboBox(topics);
     super.getChildren().add(comboBox);
+    
+    
+    Label addTopicInstructions =
+        new Label("\n or \n \n 2) ADD A NEW topic by typing the new topic into the below text box \n");
+    addTopicInstructions.setTextAlignment(TextAlignment.CENTER);
+    super.getChildren().add(addTopicInstructions);
     
     // creates a text box where users can enter new topics
     TextArea newTopic = new TextArea();
@@ -33,10 +49,6 @@ public class PickTopicAndQuestion extends VBox {
     newTopic.setMaxWidth(150);
     super.getChildren().add(newTopic);
     
-    // explain what the text area is for
-    Label b = new Label("Type in box above and press enter to add a topic");
-    b.setMinWidth(100);
-    super.getChildren().add(b);
     
     // create a button to add a question
     Button b0 = new Button("Add Question");
@@ -62,6 +74,7 @@ public class PickTopicAndQuestion extends VBox {
     b3.setMinWidth(100);
     b3.setOnMouseClicked(e -> this.finishHandler.handleEvent());
     super.getChildren().add(b3);
+    super.setAlignment(Pos.CENTER);
   }
   
   // method to add a question and come back to this page once the question has been added

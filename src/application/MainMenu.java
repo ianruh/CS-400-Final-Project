@@ -25,13 +25,13 @@ public class MainMenu extends BorderPane {
   int totalNumQuestions;
 
   public MainMenu(int totalNumQuestions) {
-
+    this.totalNumQuestions = totalNumQuestions;
     addComponents();
 
   }
   
   private void addComponents() {
-		this.totalNumQuestions = totalNumQuestions;
+		
 		
 		// TODO: The image doesn't work for everybody for some reason.
 		
@@ -46,10 +46,7 @@ public class MainMenu extends BorderPane {
 		// create the main menu buttons and add them to a Vbox in the center of the borderpane
 		Button buttonLoadImport = new Button("Load/Import Questions");
 		Button buttonAddQuestion = new Button("Add Questions");
-		Button buttonStartQuiz = new Button("Start Quiz");
-		
-		buttonStartQuiz.setOnMouseClicked(e -> this.startQuizPressed());
-		buttonAddQuestion.setOnMouseClicked(e -> this.newQuestionPressed());
+		Button buttonStartQuiz = new Button("Start Quiz");		
 		
 		Button buttonExit = new Button("Exit");
 		VBox vbox = new VBox(buttonLoadImport, buttonAddQuestion, buttonStartQuiz, buttonExit);
@@ -63,6 +60,16 @@ public class MainMenu extends BorderPane {
 		reportTotalQuestions.setTextFill(Color.web("#008000"));
 		this.setBottom(reportTotalQuestions);
 		this.setAlignment(reportTotalQuestions, Pos.CENTER);
+		
+		// how to handle the buttons being clicked on, link them to the next screen
+		buttonLoadImport.setOnMouseClicked(e -> this.importPressed());
+	    buttonStartQuiz.setOnMouseClicked(e -> this.startQuizPressed());
+	    buttonAddQuestion.setOnMouseClicked(e -> this.newQuestionPressed());
+	    buttonExit.setOnMouseClicked(e -> this.exitPressed());
+	    //need to load/import questions
+
+	    
+		
   }
   
   private void startQuizPressed() {
@@ -89,5 +96,23 @@ public class MainMenu extends BorderPane {
 	  ObservableList<String> weekDays =
 		      FXCollections.observableArrayList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
 	  this.setCenter(new PickTopicAndQuestion(weekDays, finishHandler));
+  }
+  
+  private void exitPressed() {
+    EventHandler finishHandler = () -> addComponents();    
+    this.setCenter(new ExitAndSaveMenu(finishHandler));
+    
+  }
+  
+  private void importPressed() {
+    EventHandler finishHandler = () -> addComponents();
+    this.setCenter(new ImportQuestions(finishHandler));
+    
+  }
+  
+  private void exportPressed() {
+    EventHandler finishHandler = () -> addComponents();
+    this.setCenter(new ExportQuestions(finishHandler));
+    
   }
 }

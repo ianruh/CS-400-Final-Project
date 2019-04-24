@@ -2,6 +2,7 @@ package application;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
@@ -20,6 +21,7 @@ public class AddQuestion extends VBox{
     
     // adds a text field first
     TextArea textA1 = new TextArea();
+    
     super.getChildren().add(textA1);
     
     // then add a combo box below it with 2 options
@@ -48,6 +50,7 @@ public class AddQuestion extends VBox{
     Button b3 = new Button("Back");
     b3.setOnMouseClicked(e -> backHandler.handleBack());
     super.getChildren().add(b3);
+
  
   }  
 
