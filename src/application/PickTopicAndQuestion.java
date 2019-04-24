@@ -108,7 +108,7 @@ public class PickTopicAndQuestion extends VBox {
     
     
     // Big Step 3
-    Label step3= new Label("Step 3 (Optinonal):");
+    Label step3= new Label("Step 3 (Optional):");
     step3.setScaleX(1.5);
     step3.setScaleY(1.5);
     step3.setTextAlignment(TextAlignment.LEFT);
