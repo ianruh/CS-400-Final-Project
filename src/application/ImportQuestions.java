@@ -19,23 +19,39 @@ public class ImportQuestions extends BorderPane{
     this.finishHandler = finishHandler;
     
     
-    // create an load prompt asking to input the file name
+    // Load title
+    Label loadTitle = new Label("Load Questions");
+    loadTitle.setScaleX(2.75);
+    loadTitle.setScaleY(2.75);
+    loadTitle.setAlignment(Pos.CENTER);
+    
+    // Create an load prompt asking to input the file name
     Label loadPrompt =
-        new Label("Load: "
-            + "\n Please enter the name of the JSON "
+        new Label("\nPlease enter the name of the JSON "
             + "\n file of questions you would like to import");
-    //ption to bold the label text
-    //loadPrompt.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
+    loadPrompt.setScaleX(1.5);
+    loadPrompt.setScaleY(1.5);
     loadPrompt.setTextAlignment(TextAlignment.CENTER);
-    TextArea fileName = new TextArea();
-    Button buttonLoad = new Button("Import");
-    Button buttonCancel = new Button("Cancel");      
    
-    VBox vbox = new VBox(loadPrompt, fileName, buttonLoad, buttonCancel);
+    // Filename Textbox
+    TextArea fileName = new TextArea();
+    fileName.setMaxSize(380, 48);
+    
+    // Load Button
+    Button buttonLoad = new Button("Import File");
+    buttonLoad.setPrefSize(256, 48);
+    
+    // Cancel Button
+    Button buttonCancel = new Button("Cancel");      
+    buttonCancel.setPrefSize(256, 36);
+    
+    // Generate returned VBOX
+    VBox vbox = new VBox(loadTitle, loadPrompt, fileName, buttonLoad, buttonCancel);
     vbox.setAlignment(Pos.CENTER);
     vbox.setSpacing(40);
     this.setCenter(vbox);
     
+    // Cancel button interact
     buttonCancel.setOnMouseClicked(e -> this.finishHandler.handleEvent());
     
     //need to implement a load button
