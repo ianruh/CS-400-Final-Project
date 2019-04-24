@@ -97,8 +97,10 @@ public class BasicQuestion extends VBox implements Question {
 		
 		// Image, if there is one.
 		if(this.imageSource != null) {
-			Image image = new Image(getClass().getResourceAsStream(this.imageSource));
+			Image image = new Image(this.imageSource);
 			ImageView imageView = new ImageView(image);
+			imageView.maxWidth(200);
+			imageView.maxHeight(200);
 			this.getChildren().add(imageView);
 		}
 		

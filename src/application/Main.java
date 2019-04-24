@@ -18,7 +18,7 @@ public class Main extends Application {
 			MainMenu mainMenu = new MainMenu(primaryStage);
 
 			// Open the scene
-			Scene scene = new Scene(mainMenu ,600,900);
+			Scene scene = new Scene(mainMenu ,900,900);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();

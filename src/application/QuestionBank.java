@@ -21,7 +21,7 @@ public class QuestionBank {
 		answers1.add("Answer 2");
 		answers1.add("Answer 3");
 		answers1.add("Answer 4");
-		BasicQuestion question1 = new BasicQuestion("Example question?", answers1, 0, "topic string", null);
+		BasicQuestion question1 = new BasicQuestion("Example question?", answers1, 0, "topic string", "https://cataas.com/cat");
 		
 		// Question 2
 		ArrayList<String> answers2 = new ArrayList<String>();
@@ -29,7 +29,7 @@ public class QuestionBank {
 		answers2.add("Answer 2");
 		answers2.add("Answer 3");
 		answers2.add("Answer 4 <-- This one");
-		BasicQuestion question2 = new BasicQuestion("Yep, this is an example as well, but with more text.", answers2, 3, "topic string", null);
+		BasicQuestion question2 = new BasicQuestion("Yep, this is an example as well, but with more text.", answers2, 3, "topic string", "https://cataas.com/cat");
 		
 		// Question 3
 		ArrayList<String> answers3 = new ArrayList<String>();
@@ -41,7 +41,7 @@ public class QuestionBank {
 			+ "nec orci at hendrerit. Nunc sit amet quam purus. Donec elementum metus vel erat sollicitudin pharetra. "
 			+ "Curabitur neque nisi, consequat quis lorem non, efficitur faucibus velit. Ut in accumsan nulla. Maecenas "
 			+ "consequat ipsum eu urna consectetur, nec bibendum augue cursus. Ut viverra fringilla luctus. Vivamus nec "
-			+ "tincidunt est. Curabitur volutpat maximus felis ut vestibulum. HINT: It's true", answers3, 0, "topic string", null);
+			+ "tincidunt est. Curabitur volutpat maximus felis ut vestibulum. HINT: It's true", answers3, 0, "topic string", "https://cataas.com/cat");
 		
 		ArrayList<BasicQuestion> questions = new ArrayList<BasicQuestion>();
 		questions.add(question1);
