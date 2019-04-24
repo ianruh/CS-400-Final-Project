@@ -1,11 +1,13 @@
 package application;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
@@ -26,54 +28,114 @@ public class PickTopicAndQuestion extends VBox {
   private void addComponents(ObservableList topics) {
     this.getChildren().clear();
     
+    // Add Question Title
+    Label titleLabel = new Label("Add Question:");
+    titleLabel.setScaleX(2.0);
+    titleLabel.setScaleY(2.0);
+    titleLabel.setTextAlignment(TextAlignment.CENTER);
+    super.getChildren().add(titleLabel);
     
+    // Topic Instructions Label
     Label pickTopicInstructions =
-        new Label("First choose the topic you would like this question to be organized under by \n\n"
-            + "\n 1) SELECT A EXISTING topic from the below drop down menu of available topics \n\n");
+        new Label("SELECT A EXISTING topic from the drop down below:\n\n");
     pickTopicInstructions.setTextAlignment(TextAlignment.CENTER);
     super.getChildren().add(pickTopicInstructions);
     
-    // creates a combo box that holds all current topics
+    // Combo box for existing topics
     ComboBox<String> comboBox = new ComboBox(topics);
+    comboBox.setMinWidth(320);
     super.getChildren().add(comboBox);
     
+    // Big OR
+    Label bigORLabel = new Label("OR");
+    bigORLabel.setScaleX(1.5);
+    bigORLabel.setScaleY(1.5);
+    bigORLabel.setTextAlignment(TextAlignment.CENTER);
+    super.getChildren().add(bigORLabel);
     
+    // New custom topic label
     Label addTopicInstructions =
-        new Label("\n or \n \n 2) ADD A NEW topic by typing the new topic into the below text box \n");
+        new Label("ADD A NEW topic by typing in the new topic name:\n");
     addTopicInstructions.setTextAlignment(TextAlignment.CENTER);
     super.getChildren().add(addTopicInstructions);
     
-    // creates a text box where users can enter new topics
+    // Textbox for neww custom question
     TextArea newTopic = new TextArea();
-    newTopic.setMaxHeight(50);
-    newTopic.setMaxWidth(150);
+    newTopic.setMaxHeight(25);
+    newTopic.setMaxWidth(320);
     super.getChildren().add(newTopic);
     
+    // Question body Label
+    Label questionBodyDescription = new Label("Type the question that will be asked:");
+    questionBodyDescription.setTextAlignment(TextAlignment.CENTER);
+    super.getChildren().add(questionBodyDescription);
     
-    // create a button to add a question
-    Button b0 = new Button("Add Question");
-    b0.setMinWidth(100);
-    super.getChildren().add(b0);
-    b0.setOnMouseClicked( event -> addQuestion());
+    // Question body textbox 
+    TextArea questionBody = new TextArea();
+    questionBody.setMaxWidth(400);
+    questionBody.setMaxHeight(80);
+    super.getChildren().add(questionBody);
     
-    // create a button to load an image
+    // Load Image label
+    Label imageLabel = new Label("\nLoad an image you would like to display (optional):");
+    imageLabel.setTextAlignment(TextAlignment.CENTER);
+    super.getChildren().add(imageLabel);
+    
+    // Load Image Button
     Button b1 = new Button("Load Image");
     b1.setMinWidth(100);
-//    b1.setOnMouseClicked(/* go to save / load screen*/);
     super.getChildren().add(b1);
     
+    // Insert Answer HBOX
+    HBox insertAnswer = new HBox();
     
-    // create a button the edit ansers
-    Button b2 = new Button("Edit Answers");
-    b2.setMinWidth(100);
-//    b2.setOnMouseClicked(/* some how edit answers*/);
-    super.getChildren().add(b2);
+    // Insert Answer Label
+    Label answerLabel = new Label("\nWrite a possible answer and choose its correctness.");
+    answerLabel.setTextAlignment(TextAlignment.CENTER);
+    super.getChildren().add(answerLabel);
     
-    // create a button to cancel "operations"
-    Button b3 = new Button("Cancel");
-    b3.setMinWidth(100);
-    b3.setOnMouseClicked(e -> this.finishHandler.handleEvent());
-    super.getChildren().add(b3);
+    //super.getChildren().add(answerLabel);
+ 
+    // Insert Answer - Text prompt
+    TextArea answerBody = new TextArea();
+    answerBody.setMaxWidth(280);
+    answerBody.setMaxHeight(25);
+    insertAnswer.getChildren().add(answerBody);    
+    
+    // Insert Answer - True/False
+    ObservableList<String> trueOrFalse =
+    	      FXCollections.observableArrayList("True", "False");
+    ComboBox<String> correctness = new ComboBox(trueOrFalse);
+    insertAnswer.getChildren().add(correctness);
+   
+    // Insert Answer - Add Button
+    Button insertButton = new Button("Insert Answer");
+    insertButton.setMinWidth(100);
+    insertAnswer.getChildren().add(insertButton);
+
+    // Add Answer to super
+    insertAnswer.setAlignment(Pos.CENTER);
+    insertAnswer.setSpacing(5);
+    super.getChildren().add(insertAnswer);
+    
+    // Blank space
+    Label blankSpace = new Label(" ");
+    blankSpace.setTextAlignment(TextAlignment.CENTER);
+    super.getChildren().add(blankSpace);
+    
+    // Create a button to submit question
+    Button submitQuestion = new Button("Submit Question");
+    submitQuestion.setMinWidth(100);
+    submitQuestion.setOnMouseClicked(e -> this.finishHandler.handleEvent());
+    submitQuestion.setMinSize(256, 48);
+    super.getChildren().add(submitQuestion);
+    
+    // Create a button to cancel "operations"
+    Button cancelButton = new Button("Cancel");
+    cancelButton.setMinWidth(100);
+    cancelButton.setOnMouseClicked(e -> this.finishHandler.handleEvent());
+    cancelButton.setMinSize(256, 25);
+    super.getChildren().add(cancelButton);
     super.setAlignment(Pos.CENTER);
   }
   
