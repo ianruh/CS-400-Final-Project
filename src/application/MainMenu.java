@@ -41,13 +41,28 @@ public class MainMenu extends BorderPane {
 		//	        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bSize));
 		//	    this.setBackground(background);
 		
-		// create the main menu buttons and add them to a Vbox in the center of the borderpane
+		// Title
+		Label applicationTitle = new Label("Welcome to Quiz Generator!\n ");
+		applicationTitle.setScaleX(4.0);
+		applicationTitle.setScaleY(4.0);
+
+		// Load/Import Button
 		Button buttonLoadImport = new Button("Load/Import Questions");
-		Button buttonAddQuestion = new Button("Add Questions");
-		Button buttonStartQuiz = new Button("Start Quiz");		
-		
+		buttonLoadImport.setPrefSize(256, 56);
+
+		// Add Questions Button
+		Button buttonAddQuestion = new Button("Create New Question");
+		buttonAddQuestion.setPrefSize(256, 56);
+
+		// Start Quiz Button
+		Button buttonStartQuiz = new Button("Start Quiz");
+		buttonStartQuiz.setPrefSize(256, 56);
+
+		// Exit Button
 		Button buttonExit = new Button("Exit");
-		VBox vbox = new VBox(buttonLoadImport, buttonAddQuestion, buttonStartQuiz, buttonExit);
+		buttonExit.setPrefSize(256, 56);
+
+		VBox vbox = new VBox(applicationTitle, buttonLoadImport, buttonAddQuestion, buttonStartQuiz, buttonExit);
 		vbox.setAlignment(Pos.CENTER);
 		vbox.setSpacing(40);
 		this.setCenter(vbox);
