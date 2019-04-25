@@ -122,6 +122,7 @@ public class PickTopicAndQuestion extends VBox {
     // Load Image Button
     Button b1 = new Button("Load Image");
     b1.setMinWidth(100);
+    b1.setOnAction(e -> this.loadImage());
     super.getChildren().add(b1);
     
     // Insert Answer HBOX
@@ -203,4 +204,11 @@ public class PickTopicAndQuestion extends VBox {
     }));
   }
   
+  private void loadImage() {
+    EventHandler finishHandler = () -> addComponents(topics);
+    this.getChildren().clear();
+    this.getChildren().add(new LoadImage(finishHandler));
+    
+    
+  }
 }
