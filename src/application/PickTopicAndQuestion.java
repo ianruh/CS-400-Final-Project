@@ -29,11 +29,19 @@ public class PickTopicAndQuestion extends VBox {
     this.getChildren().clear();
     
     // Add Question Title
-    Label titleLabel = new Label("Add Question:");
+    Label titleLabel = new Label("Follow the Steps to Adding a Question:\n\n");
     titleLabel.setScaleX(2.0);
     titleLabel.setScaleY(2.0);
     titleLabel.setTextAlignment(TextAlignment.CENTER);
     super.getChildren().add(titleLabel);
+    
+    
+    // Big Step 1
+    Label step1 = new Label("Step 1:");
+    step1.setScaleX(1.5);
+    step1.setScaleY(1.5);
+    step1.setTextAlignment(TextAlignment.LEFT);
+    super.getChildren().add(step1);
     
     // Topic Instructions Label
     Label pickTopicInstructions =
@@ -65,6 +73,21 @@ public class PickTopicAndQuestion extends VBox {
     newTopic.setMaxWidth(320);
     super.getChildren().add(newTopic);
     
+    // add spacing
+    Label addSpacing1 =
+        new Label("\n");
+    addSpacing1.setTextAlignment(TextAlignment.CENTER);
+    super.getChildren().add(addSpacing1);
+    
+    
+    // Big Step 2
+    Label step2= new Label("Step 2:");
+    step2.setScaleX(1.5);
+    step2.setScaleY(1.5);
+    step2.setTextAlignment(TextAlignment.LEFT);
+    super.getChildren().add(step2);
+    
+    
     // Question body Label
     Label questionBodyDescription = new Label("Type the question that will be asked:");
     questionBodyDescription.setTextAlignment(TextAlignment.CENTER);
@@ -76,8 +99,23 @@ public class PickTopicAndQuestion extends VBox {
     questionBody.setMaxHeight(80);
     super.getChildren().add(questionBody);
     
+    
+    // add spacing
+    Label addSpacing2 =
+        new Label("\n");
+    addSpacing2.setTextAlignment(TextAlignment.CENTER);
+    super.getChildren().add(addSpacing2);
+    
+    
+    // Big Step 3
+    Label step3= new Label("Step 3 (Optional):");
+    step3.setScaleX(1.5);
+    step3.setScaleY(1.5);
+    step3.setTextAlignment(TextAlignment.LEFT);
+    super.getChildren().add(step3);
+    
     // Load Image label
-    Label imageLabel = new Label("\nLoad an image you would like to display (optional):");
+    Label imageLabel = new Label("Load an image you would like to display:");
     imageLabel.setTextAlignment(TextAlignment.CENTER);
     super.getChildren().add(imageLabel);
     
@@ -89,8 +127,22 @@ public class PickTopicAndQuestion extends VBox {
     // Insert Answer HBOX
     HBox insertAnswer = new HBox();
     
+    // add spacing
+    Label addSpacing3 =
+        new Label("\n");
+    addSpacing3.setTextAlignment(TextAlignment.CENTER);
+    super.getChildren().add(addSpacing3);
+    
+    
+    // Big Step 3
+    Label step4= new Label("Step 4:");
+    step4.setScaleX(1.5);
+    step4.setScaleY(1.5);
+    step4.setTextAlignment(TextAlignment.LEFT);
+    super.getChildren().add(step4);
+    
     // Insert Answer Label
-    Label answerLabel = new Label("\nWrite a possible answer and choose its correctness.");
+    Label answerLabel = new Label("Write a possible answer and choose its correctness.");
     answerLabel.setTextAlignment(TextAlignment.CENTER);
     super.getChildren().add(answerLabel);
     

@@ -47,11 +47,11 @@ public class MainMenu extends BorderPane {
 		applicationTitle.setScaleY(4.0);
 
 		// Load/Import Button
-		Button buttonLoadImport = new Button("Load/Import Questions");
+		Button buttonLoadImport = new Button("Load/Import Questions from a File");
 		buttonLoadImport.setPrefSize(256, 56);
 
 		// Add Questions Button
-		Button buttonAddQuestion = new Button("Create New Question");
+		Button buttonAddQuestion = new Button("Create a New Question");
 		buttonAddQuestion.setPrefSize(256, 56);
 
 		// Start Quiz Button

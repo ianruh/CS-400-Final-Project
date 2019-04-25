@@ -7,6 +7,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class ImportExportUtility {
+	protected static Stage primaryStage;
+	
+	public ImportExportUtility(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+	}
 	
 	private static void SaveFile(String content, File file){
 	      try {
