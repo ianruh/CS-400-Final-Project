@@ -20,11 +20,7 @@ import javafx.scene.paint.Color;
 
 public class MainMenu extends BorderPane {
 
-  // class field int that stores the number of questions in the questionBank
-  int totalNumQuestions;
-
   public MainMenu() {
-    this.totalNumQuestions = 10; //TODO Fix
     addComponents();
   }
   
@@ -69,7 +65,7 @@ public class MainMenu extends BorderPane {
 		
 		// add a label to the bottom that reports the number of questions in the questionBank
 		Label reportTotalQuestions =
-		    new Label("There are " + totalNumQuestions + " questions in the database");
+		    new Label("There are " + QuestionBank.master.getNumQuestions() + " questions in the database");
 		reportTotalQuestions.setTextFill(Color.web("#008000"));
 		this.setBottom(reportTotalQuestions);
 		this.setAlignment(reportTotalQuestions, Pos.CENTER);
@@ -88,19 +84,8 @@ public class MainMenu extends BorderPane {
   private void startQuizPressed() {
 	  EventHandler finishHandler = () -> addComponents();
 	  
-	  EventHandler beginHandler = new EventHandler() {
-		@Override
-		public void handleEvent() {
-			BasicQuiz quiz = new BasicQuiz(QuestionBank.getQuestions(), finishHandler, () -> {
-				StartQuiz startQuiz = new StartQuiz(this, finishHandler);
-				setCenter(startQuiz.returnScene());
-			});
-			setCenter(quiz);
-		}  
-	  };
-	  
-	  StartQuiz startQuiz = new StartQuiz(beginHandler, finishHandler);
-	  this.setCenter(startQuiz.returnScene());
+	  StartQuiz startQuiz = new StartQuiz(finishHandler);
+	  this.setCenter(startQuiz);
   }
   
   private void newQuestionPressed() {

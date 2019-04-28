@@ -1,5 +1,10 @@
 package application;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -14,7 +19,7 @@ import javafx.scene.layout.VBox;
 public class BasicQuestion extends VBox implements Question {
 	
 	// Array list of the answer strings
-	private ArrayList<String> answers;
+	private List<String> answers;
 	
 	// Index of the correct answer
 	private int correctAnswer;
@@ -23,7 +28,7 @@ public class BasicQuestion extends VBox implements Question {
 	private String question;
 	
 	// The question topic
-	private String topic;
+	public String topic;
 	
 	// The source of the image for the question if there is one.
 	private String imageSource;
@@ -43,7 +48,7 @@ public class BasicQuestion extends VBox implements Question {
 	 * @param topic The topic of the question.
 	 * @param imageSource The path to the image.
 	 */
-	public BasicQuestion(String text, ArrayList<String> answers, int correctAnswer, String topic, String imageSource) {
+	public BasicQuestion(String text, List<String> answers, int correctAnswer, String topic, String imageSource) {
 		// Set spacing to 15px
 		super(15);
 		
@@ -96,12 +101,16 @@ public class BasicQuestion extends VBox implements Question {
 		this.getChildren().add(topicLabel);
 		
 		// Image, if there is one.
-		if(this.imageSource != null) {
-			Image image = new Image(this.imageSource);
-			ImageView imageView = new ImageView(image);
-			imageView.maxWidth(200);
-			imageView.maxHeight(200);
-			this.getChildren().add(imageView);
+		try {
+			if(this.imageSource != null) {
+				Image image = new Image(this.imageSource);
+				ImageView imageView = new ImageView(image);
+				imageView.maxWidth(200);
+				imageView.maxHeight(200);
+				this.getChildren().add(imageView);
+			}
+		} catch (Exception e) {
+			System.out.println("The image failed to load: " + this.imageSource);
 		}
 		
 		// Loop through and add each answer
@@ -150,8 +159,77 @@ public class BasicQuestion extends VBox implements Question {
 	 * Method used to get all of the answers from the question.
 	 */
 	@Override
-	public ArrayList<String> getAnswers() {
+	public List<String> getAnswers() {
 		return this.answers;
+	}
+	
+	/**
+	 * Method used to determine if two questions are the same.
+	 * @param question to check.
+	 * @return true or false
+	 */
+	@Override
+	public boolean equals(Object questionObject) {
+		if (questionObject == null) {
+            return false;
+        }
+
+        if (!BasicQuestion.class.isAssignableFrom(questionObject.getClass())) {
+            return false;
+        }
+
+        final BasicQuestion question = (BasicQuestion) questionObject;
+        
+		if(this.toString().equals(question.toString()))
+			return true;
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.toString().hashCode();
+	}
+	
+	@Override
+	public String toString() {
+		String out = "";
+		out += this.question + "\n";
+		out += this.topic + "\n";
+		out += this.imageSource + "\n";
+		for(String answer: this.answers) {
+			out += "["+answer+"]\n";
+		}
+		out += "The correct answer is: " + this.correctAnswer + "\n";
+		return out;
+	}
+	
+	/**
+	 * Method used to export the question to json.
+	 * @return
+	 */
+	public JSONObject getJSONObject() {
+		JSONObject map = new JSONObject(); 
+		map.put("meta-data", "unused");
+		map.put("questionText", this.question);
+		map.put("topic", this.topic);
+		if(this.imageSource != null) {
+			map.put("image", this.imageSource);
+		} else {
+			map.put("image", "none");
+		}
+		JSONArray answers = new JSONArray();
+		for(int i = 0; i < this.answers.size(); i++) {
+			JSONObject answer = new JSONObject();
+			if(i == this.correctAnswer) {
+				answer.put("isCorrect", "T");
+			} else {
+				answer.put("isCorrect", "F");
+			}
+			answer.put("choice", this.answers.get(i));
+			answers.add(answer);
+		}
+		map.put("choiceArray", answers);
+		return map;
 	}
 
 }

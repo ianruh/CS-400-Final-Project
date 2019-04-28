@@ -48,7 +48,7 @@ public class ExitAndSaveMenu extends BorderPane {
         	Platform.exit();
             System.exit(0);
         };
-        ImportExportUtility.saveDialogue("Example", exitHandler);
+        ImportExportUtility.master.exportQuestionBank(exitHandler);
     });
     
     // Exit w/o Saving Button

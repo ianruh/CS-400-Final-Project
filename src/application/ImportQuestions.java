@@ -1,4 +1,7 @@
 package application;
+import java.io.File;
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -33,12 +36,20 @@ public class ImportQuestions extends BorderPane{
     loadPrompt.setScaleY(1.5);
     loadPrompt.setTextAlignment(TextAlignment.CENTER);
    
+    // TODO We don't really need this if we use the file picker
     // Filename Textbox
     TextArea fileName = new TextArea();
     fileName.setMaxSize(380, 48);
     
     // Load Button
     Button buttonLoad = new Button("Import File");
+    buttonLoad.setOnMouseClicked(e -> {
+    	File file = ImportExportUtility.master.selectJSONFile();
+    	if(file != null) {
+    		List<BasicQuestion> list = ImportExportUtility.master.importQuestions(file);
+    		QuestionBank.master.addQuestions(list);
+    	}
+    });
     buttonLoad.setPrefSize(256, 48);
     
     // Cancel Button

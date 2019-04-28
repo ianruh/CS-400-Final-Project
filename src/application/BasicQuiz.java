@@ -1,15 +1,11 @@
 package application;
-import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 
 /**
  * The BasicQuiz class implements the Quiz interface and extends a ScrollPane.
@@ -77,7 +73,7 @@ public class BasicQuiz extends ScrollPane implements Quiz {
 	private int numQuestionsShowing = 0;
 	
 	// Store a list of the questions.
-	ArrayList<BasicQuestion> questions;
+	protected List<BasicQuestion> questions;
 	
 	// The vertical box used for the layout
 	private VBox verticalBox;
@@ -92,7 +88,7 @@ public class BasicQuiz extends ScrollPane implements Quiz {
 	 * @param questions ArrayList of questions to put in the quiz.
 	 * @param finishHandler Handler for what to do when the quiz is completed.
 	 */
-	public BasicQuiz(ArrayList<BasicQuestion> questions, EventHandler finishHandler, EventHandler newQuizHandler) {
+	public BasicQuiz(List<BasicQuestion> questions, EventHandler finishHandler, EventHandler newQuizHandler) {
 		super();
 		
 		//Initialize the vertical box
@@ -156,8 +152,7 @@ public class BasicQuiz extends ScrollPane implements Quiz {
 			
 			// Place holder until we figure out what it should do.
 			EventHandler saveQuizHandler = () -> {
-	            EventHandler returnToMain = () -> this.finishHandler.handleEvent();
-	            ImportExportUtility.saveDialogue("Example Quiz", returnToMain);
+	            ImportExportUtility.master.exportQuiz(this, () -> this.finishHandler.handleEvent());
 			};
 			
 			

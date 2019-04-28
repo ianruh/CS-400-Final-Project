@@ -1,39 +1,36 @@
 package application;
 	
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.UnaryOperator;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
-public class StartQuiz extends Main {
+public class StartQuiz extends VBox {
 	
 	private EventHandler finishHandler;
-	private EventHandler beginHandler;
 	
-	public StartQuiz(EventHandler beginHandler, EventHandler finishHandler) {
+	public StartQuiz(EventHandler finishHandler) {
 		super();
 		this.finishHandler = finishHandler;
-		this.beginHandler = beginHandler;
+		this.addComponents();
 	}
 
-	public VBox returnScene() {
+	public void addComponents() {
 
 		// Return VBox
-		VBox mainVBox = new VBox();
+		VBox mainVBox = this;
 		mainVBox.setAlignment(Pos.CENTER);
 		mainVBox.setSpacing(16);
 		
@@ -55,9 +52,7 @@ public class StartQuiz extends Main {
 		
 		
 		// Topics
-		String[] topics = {"Topic 1", "Topic 2", "Topic 3", 
-				"Topic 4", "Topic 5", "Topic 6", "Topic 7", "Topic 8", 
-				"Topic 9", "Topic 10", };
+		List<String> topics = QuestionBank.master.getTopics();
 	     
 		
 	    // Big Step 1
@@ -79,11 +74,11 @@ public class StartQuiz extends Main {
 		scrollPane.setMaxWidth(256);
 		//scrollPane.setPrefSize(256, 96);	
 		
-		for (int i = 0; i < topics.length; i++) {
-		  CheckBox topicBox = new CheckBox(topics[i]);
+		for (int i = 0; i < topics.size(); i++) {
+		  CheckBox topicBox = new CheckBox(topics.get(i));
 		  topicBox.setAlignment(Pos.CENTER);
 		  topicList.getChildren().add(topicBox);
-		  topicBox.setIndeterminate(true);
+		  topicBox.setSelected(false);
 		}
 		scrollPane.setContent(topicList);
 		mainVBox.getChildren().add(scrollPane);
@@ -123,9 +118,33 @@ public class StartQuiz extends Main {
 		hbQuestions.setAlignment(Pos.CENTER);
 		mainVBox.getChildren().add(hbQuestions);
 		
+		
+		
 		// Begin Button
 		Button beginButton = new Button("Begin Quiz");
-		beginButton.setOnMouseClicked(e -> this.beginHandler.handleEvent());
+		beginButton.setOnMouseClicked(e -> {
+			// Get the selected topics
+			ArrayList<String> selectedTopics = new ArrayList<String>();
+			for(Node box: topicList.getChildren()) {
+				CheckBox checkBox = (CheckBox)box;
+				if(checkBox.isSelected()) {
+					selectedTopics.add(checkBox.getText());
+				}
+			}
+			
+			// Get the number of questions
+			int numQuestions = (int)Double.parseDouble(questionsField.getText());
+			
+			// If there are selected topics, begin the quiz
+			if(selectedTopics.size() != 0) {
+				BasicQuiz quiz = new BasicQuiz(QuestionBank.master.getNewQuiz(numQuestions, selectedTopics), finishHandler, () -> {
+					this.getChildren().clear();
+					this.getChildren().add(new StartQuiz(finishHandler));
+				});
+				this.getChildren().clear();
+				this.getChildren().add(quiz);
+			}
+		});
 		beginButton.setPrefWidth(156);
 		mainVBox.getChildren().add(beginButton);
 		
@@ -134,9 +153,6 @@ public class StartQuiz extends Main {
 		backButton.setOnMouseClicked(e -> this.finishHandler.handleEvent());
 		backButton.setPrefWidth(156);
 		mainVBox.getChildren().add(backButton);
-		
-		// Return scene
-		return mainVBox;
 	}
 }
 
