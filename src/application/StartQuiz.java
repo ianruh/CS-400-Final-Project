@@ -132,11 +132,12 @@ public class StartQuiz extends VBox {
 				}
 			}
 			
-			// Get the number of questions
-			int numQuestions = (int)Double.parseDouble(questionsField.getText());
-			
 			// If there are selected topics, begin the quiz
-			if(selectedTopics.size() != 0) {
+			if(selectedTopics.size() != 0 && !questionsField.getText().equals("")) {
+				// Get the number of questions
+				int numQuestions = (int)Double.parseDouble(questionsField.getText());
+				
+				// Make the quiz
 				BasicQuiz quiz = new BasicQuiz(QuestionBank.master.getNewQuiz(numQuestions, selectedTopics), finishHandler, () -> {
 					this.getChildren().clear();
 					this.getChildren().add(new StartQuiz(finishHandler));
