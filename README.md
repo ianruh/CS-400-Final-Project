@@ -2,8 +2,11 @@
 The UML Diagram can be viewed in draw.io.
 
 **Course**: cs400
+
 **Semester**: Spring 2019
+
 **Project name**: Practice Quiz Generator
+
 **Team Members**:
 1. member name1, lecture, and email1@wisc.edu
 2. member name2, lecture, and email2@wisc.edu
