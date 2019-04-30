@@ -1,5 +1,6 @@
 package application;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -40,6 +41,13 @@ public class LoadImage extends BorderPane{
   // Load Button
   Button buttonLoad = new Button("Import File");
   buttonLoad.setPrefSize(256, 48);
+//  buttonLoad.setOnAction((event) -> {
+//    EventHandler exitHandler = () -> {
+//        Platform.exit();
+//        System.exit(0);
+//    };
+//    ImportExportUtility.saveDialogue("Example", exitHandler);
+//});
   
   // Cancel Button
   Button buttonCancel = new Button("Cancel");      
