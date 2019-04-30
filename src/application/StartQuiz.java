@@ -68,7 +68,7 @@ public class StartQuiz extends VBox {
 		
 		// Create Topics Scroll List
 		VBox topicList = new VBox();
-		topicList.setAlignment(Pos.CENTER);
+		//topicList.setAlignment(Pos.CENTER);
 		ScrollPane scrollPane = new ScrollPane();
 		scrollPane.setMaxHeight(96);
 		scrollPane.setMaxWidth(256);
