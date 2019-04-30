@@ -1,6 +1,5 @@
 package application;
 	
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
@@ -34,13 +33,6 @@ public class StartQuiz extends VBox {
 		mainVBox.setAlignment(Pos.CENTER);
 		mainVBox.setSpacing(16);
 		
-//		// Title
-//		Label title = new Label("Quiz Options:\n");
-//		title.setScaleX(2.0);
-//		title.setScaleY(2.0);
-//		mainVBox.getChildren().add(title);
-		
-		
 	    // Add Title
 	    Label titleLabel = new Label("Follow the Steps to Create a Quiz:\n\n");
 	    titleLabel.setScaleX(2.0);
@@ -48,14 +40,10 @@ public class StartQuiz extends VBox {
 	    titleLabel.setTextAlignment(TextAlignment.CENTER);
 	    mainVBox.getChildren().add(titleLabel);
 	    
-		
-		
-		
-		// Topics
+		// Pull  Topics List
 		List<String> topics = QuestionBank.master.getTopics();
-	     
 		
-	    // Big Step 1
+	    // "Step 1" Title
 	    Label step1 = new Label("Step 1:");
 	    step1.setScaleX(1.5);
 	    step1.setScaleY(1.5);
@@ -66,14 +54,13 @@ public class StartQuiz extends VBox {
 		Label topicsLabel = new Label("Please select the topics you would like to be quized on:\n");
 		mainVBox.getChildren().add(topicsLabel);
 		
-		// Create Topics Scroll List
+		// Create Topic List Scroll Field
 		VBox topicList = new VBox();
-		//topicList.setAlignment(Pos.CENTER);
 		ScrollPane scrollPane = new ScrollPane();
 		scrollPane.setMaxHeight(96);
 		scrollPane.setMaxWidth(256);
-		//scrollPane.setPrefSize(256, 96);	
 		
+		// Pull topics from database
 		for (int i = 0; i < topics.size(); i++) {
 		  CheckBox topicBox = new CheckBox(topics.get(i));
 		  topicBox.setAlignment(Pos.CENTER);
@@ -94,13 +81,13 @@ public class StartQuiz extends VBox {
 			return null;
 		};
 
-	    // add spacing
+	    // Spacing
 	    Label addSpacing1 =
 	        new Label("\n\n");
 	    addSpacing1.setTextAlignment(TextAlignment.CENTER);
 	    mainVBox.getChildren().add(addSpacing1);
 		
-	    // Big Step 2
+	    // "Step 2:" Title
         Label step2 = new Label("Step 2:");
         step2.setScaleX(1.5);
         step2.setScaleY(1.5);
@@ -117,8 +104,6 @@ public class StartQuiz extends VBox {
 		hbQuestions.setSpacing(10);
 		hbQuestions.setAlignment(Pos.CENTER);
 		mainVBox.getChildren().add(hbQuestions);
-		
-		
 		
 		// Begin Button
 		Button beginButton = new Button("Begin Quiz");
