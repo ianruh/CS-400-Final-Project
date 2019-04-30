@@ -103,8 +103,14 @@ public class BasicQuestion extends VBox implements Question {
 		
 		// Image, if there is one.
 		try {
-			if(this.imageSource != null) {
+			if(this.imageSource != null || !this.imageSource.equals("none")) {
 				Image image = new Image(this.imageSource);
+				ImageView imageView = new ImageView(image);
+				imageView.maxWidth(200);
+				imageView.maxHeight(200);
+				this.getChildren().add(imageView);
+			} else {
+				Image image = new Image("place-holder.png");
 				ImageView imageView = new ImageView(image);
 				imageView.maxWidth(200);
 				imageView.maxHeight(200);
@@ -141,8 +147,6 @@ public class BasicQuestion extends VBox implements Question {
 	 * if it is wrong, red banner.
 	 */
 	private void showAnswerCheckAlert() {
-//		Label answerCheckLabel;
-		
 		// Set background colors
 		if(this.answeredCorrectly) {
 			this.answerCheckLabel = new Label("Hooray!!!");
