@@ -37,8 +37,12 @@ public class PickTopicAndQuestion extends VBox {
     this.table = new HashMap<String, ArrayList<BasicQuestion>>();
     this.topics = topics;
     this.count = 0;
-    this.correctAnswer = 0;
+    this.correctAnswer = -1;
     this.imageURL = "none";
+    this.newTopic = "";
+    this.newQuestion = "";
+    this.newTopic = "";
+    this.newAnswer = "";
     this.answers = new ArrayList<String>();
     this.finishHandler = finishHandler;
     addComponents(topics);
@@ -83,7 +87,7 @@ public class PickTopicAndQuestion extends VBox {
     
     // New custom topic label
     Label addTopicInstructions =
-        new Label("ADD A NEW topic by typing in the new topic name:\n");
+        new Label("ADD A NEW topic by typing in the new topic name (This will always override the select an existing topic option):\n");
     addTopicInstructions.setTextAlignment(TextAlignment.CENTER);
     super.getChildren().add(addTopicInstructions);
     
@@ -92,9 +96,7 @@ public class PickTopicAndQuestion extends VBox {
     newTopic.setMaxHeight(25);
     newTopic.setMaxWidth(320);
     super.getChildren().add(newTopic);
-    if(newTopic.getText().length() > 0) {
-      this.newTopic = newTopic.getText();
-    }
+
     
     // add spacing
     Label addSpacing1 =
@@ -152,7 +154,7 @@ public class PickTopicAndQuestion extends VBox {
     imageURL.setMaxHeight(25);
     imageURL.setMaxWidth(320);
     super.getChildren().add(imageURL);
-    if(newTopic.getText().length() > 0) {
+    if(imageURL.getText().length() > 0) {
       this.imageURL = imageURL.getText();
     }
     
@@ -191,7 +193,7 @@ public class PickTopicAndQuestion extends VBox {
     answerBody.setMaxWidth(280);
     answerBody.setMaxHeight(25);
     insertAnswer.getChildren().add(answerBody);    
-    this.newAnswer = answerBody.getText();
+    //this.newAnswer = answerBody.getText();
     
     // Insert Answer - True/False
     ObservableList<String> trueOrFalse =
@@ -207,8 +209,17 @@ public class PickTopicAndQuestion extends VBox {
 
     // insert Button clicked
     insertButton.setOnMouseClicked(e ->{ 
+      
+      System.out.println(answerBody.getText().length());
+      if(answerBody.getText().length() > 0) {
+        this.answers.add(answerBody.getText());
+      }
       answerBody.clear();
-      this.answers.add(this.newAnswer);
+     // this.answers.add(this.newAnswer);
+      
+      if(newTopic.getText().length() > 0) {
+        this.newTopic = newTopic.getText();
+      }
       
       if(correctness.getValue().compareTo("True") == 0) {
         this.correctAnswer = this.count;
@@ -232,8 +243,11 @@ public class PickTopicAndQuestion extends VBox {
     Button submitQuestion = new Button("Submit Question");
     submitQuestion.setMinWidth(100);
     submitQuestion.setOnMouseClicked(e ->{
+      if(this.newQuestion != null && this.answers.size() != 0 && this.correctAnswer != -1 ) {
       QuestionBank.master.addQuestion(new BasicQuestion(this.newQuestion, this.answers, this.correctAnswer, this.newTopic, this.imageURL));
-        this.finishHandler.handleEvent();
+      this.finishHandler.handleEvent();
+      }
+      
         });
     submitQuestion.setMinSize(256, 48);
     super.getChildren().add(submitQuestion);
