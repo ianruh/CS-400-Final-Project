@@ -80,7 +80,9 @@ public class QuestionBank {
 	 * @return A list of the keys.
 	 */
 	public List<String> getTopics() {
-		return this.convertSetToList(this.table.keySet());
+		List<String> list = this.convertSetToList(this.table.keySet());
+		Collections.sort(list);
+		return list;
 	}
 	
 	/**

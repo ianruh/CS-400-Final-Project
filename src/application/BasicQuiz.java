@@ -152,19 +152,40 @@ public class BasicQuiz extends ScrollPane implements Quiz {
 			
 			// Place holder until we figure out what it should do.
 			EventHandler saveQuizHandler = () -> {
+				resetQuestions();
 	            ImportExportUtility.master.exportQuiz(this, () -> this.finishHandler.handleEvent());
 			};
 			
+			EventHandler resetAndFinishHandler = () -> {
+				resetQuestions();
+				this.finishHandler.handleEvent();
+			};
+			
+			EventHandler resetNewQuizHandler = () -> {
+				resetQuestions();
+				this.newQuizHandler.handleEvent();
+			};
 			
 			ResultsBox resultsBox = new ResultsBox(this.numCorrect, 
 					(this.numWrong + this.numCorrect), 
-					this.finishHandler, 
-					this.newQuizHandler, 
+					resetAndFinishHandler, 
+					resetNewQuizHandler, 
 					saveQuizHandler);
 			
 			this.verticalBox.getChildren().add(resultsBox);
 		} else if(index == this.numQuestionsShowing-1) {
 			this.addQuestion();
+		}
+	}
+	
+	/**
+	 * Utility method to reset the state of the question objects.
+	 */
+	private void resetQuestions() {
+		for(BasicQuestion question: this.questions) {
+			question.answered = false;
+			question.answeredCorrectly = false;
+			question.getChildren().remove(question.answerCheckLabel);
 		}
 	}
 }

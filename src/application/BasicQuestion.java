@@ -36,6 +36,7 @@ public class BasicQuestion extends VBox implements Question {
 	// Values to store the state of the question
 	protected boolean answered = false;
 	protected boolean answeredCorrectly = false;
+	protected Label answerCheckLabel = null;
 	
 	// Default answer handler
 	EventHandler handler = () -> System.out.println("Question answered handler not set.");
@@ -140,19 +141,19 @@ public class BasicQuestion extends VBox implements Question {
 	 * if it is wrong, red banner.
 	 */
 	private void showAnswerCheckAlert() {
-		Label answerCheckLabel;
+//		Label answerCheckLabel;
 		
 		// Set background colors
 		if(this.answeredCorrectly) {
-			answerCheckLabel = new Label("Hooray!!!");
-			answerCheckLabel.getStyleClass().add("correct-label");
+			this.answerCheckLabel = new Label("Hooray!!!");
+			this.answerCheckLabel.getStyleClass().add("correct-label");
 		} else {
-			answerCheckLabel = new Label("Whoopsies :(");
-			answerCheckLabel.getStyleClass().add("incorrect-label");
+			this.answerCheckLabel = new Label("Whoopsies :(");
+			this.answerCheckLabel.getStyleClass().add("incorrect-label");
 		}
 		
 		// Add to the node
-		this.getChildren().add(answerCheckLabel);
+		this.getChildren().add(this.answerCheckLabel);
 	}
 	
 	/**
