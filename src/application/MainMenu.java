@@ -91,9 +91,9 @@ public class MainMenu extends BorderPane {
   private void newQuestionPressed() {
 	  EventHandler finishHandler = () -> addComponents();
 	  
-	  ObservableList<String> weekDays =
-		      FXCollections.observableArrayList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
-	  this.setCenter(new PickTopicAndQuestion(weekDays, finishHandler));
+	  ObservableList<String> topics =
+		      FXCollections.observableArrayList(QuestionBank.master.getTopics());
+	  this.setCenter(new PickTopicAndQuestion(topics, finishHandler));
   }
   
   private void exitPressed() {
