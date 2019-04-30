@@ -1,5 +1,8 @@
 package application;
 
+import java.io.File;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -103,9 +106,12 @@ public class MainMenu extends BorderPane {
   }
   
   private void importPressed() {
-    EventHandler finishHandler = () -> addComponents();
-    this.setCenter(new ImportQuestions(finishHandler));
-    
+    File file = ImportExportUtility.master.selectJSONFile();
+	if(file != null) {
+		List<BasicQuestion> list = ImportExportUtility.master.importQuestions(file);
+		QuestionBank.master.addQuestions(list);
+	}
+    this.addComponents();
   }
   
   private void exportPressed() {
