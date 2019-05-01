@@ -141,6 +141,7 @@ public class BasicQuiz extends VBox implements Quiz {
 		this.getChildren().clear();
 		final int INDEX = this.numQuestionsShowing;
 		this.questions.get(this.numQuestionsShowing).addAnsweredHandler(() -> checkAllAnswered(INDEX));
+		this.questions.get(this.numQuestionsShowing).setIndex(INDEX);
 		this.getChildren().add(this.questions.get(this.numQuestionsShowing));
 		this.numQuestionsShowing++;
 		this.getChildren().add(nextBar);
