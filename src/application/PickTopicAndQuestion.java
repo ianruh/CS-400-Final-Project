@@ -76,6 +76,7 @@ public class PickTopicAndQuestion extends VBox {
 		super.getChildren().add(pickTopicInstructions);
 
 		// Combo box for existing topics
+		topics.sort(String.CASE_INSENSITIVE_ORDER);
 		ComboBox<String> comboBox = new ComboBox(topics);
 		comboBox.setMinWidth(320);
 		super.getChildren().add(comboBox);
