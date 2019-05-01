@@ -2,7 +2,6 @@ package application;
 	
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.UnaryOperator;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -14,7 +13,6 @@ import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -148,7 +146,7 @@ public class StartQuiz extends VBox {
 		    	alert.setHeaderText("Unable to start the quiz!");
 		    	alert.setContentText("You must fill in all the necessary information before you can start a" +
 		    						" new quiz. \n\nYou must have:\n\t- Selected a topic(s)\n\t- Entered the desired number of questions.");
-		    	Optional<ButtonType> result = alert.showAndWait(); 
+		    	alert.showAndWait(); 
 			}
 		});
 		beginButton.setPrefWidth(156);

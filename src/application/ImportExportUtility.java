@@ -189,6 +189,7 @@ public class ImportExportUtility {
 	 * @param finishHandler
 	 *            Event handler for what to do when done.
 	 */
+	@SuppressWarnings("unchecked")
 	protected void exportQuiz(BasicQuiz quiz, EventHandler finishHandler) {
 		// Create JSON Array
 		JSONArray quizObject = new JSONArray();
@@ -208,6 +209,7 @@ public class ImportExportUtility {
 	 * @param finishHandler
 	 *            Handler for what to do when done.
 	 */
+	@SuppressWarnings("unchecked")
 	protected void exportQuestionBank(EventHandler finishHandler) {
 		// Create JSON Array for question bank
 		JSONArray bankObject = new JSONArray();

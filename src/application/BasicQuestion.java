@@ -231,6 +231,7 @@ public class BasicQuestion extends VBox implements Question {
 	 * Method used to export the question to JSON.
 	 * @return JSON object representing the question.
 	 */
+	@SuppressWarnings("unchecked")
 	protected JSONObject getJSONObject() {
 		// Add all base properties.
 		JSONObject map = new JSONObject(); 

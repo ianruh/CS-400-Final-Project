@@ -2,25 +2,13 @@ package application;
 
 import java.io.File;
 import java.util.List;
-import java.util.Optional;
-
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -71,7 +59,7 @@ public class MainMenu extends BorderPane {
 				"There are " + QuestionBank.master.getNumQuestions() + " questions in the database");
 		reportTotalQuestions.setTextFill(Color.web("#008000"));
 		this.setBottom(reportTotalQuestions);
-		this.setAlignment(reportTotalQuestions, Pos.CENTER);
+		BorderPane.setAlignment(reportTotalQuestions, Pos.CENTER);
 
 		// Handle mouse interactions
 		buttonLoadImport.setOnMouseClicked(e -> this.importPressed());
@@ -115,7 +103,7 @@ public class MainMenu extends BorderPane {
 	    	Alert alert = new Alert(AlertType.INFORMATION);
 	    	alert.setTitle("Success!");
 	    	alert.setHeaderText("Quiz bank successfully exported!");
-	    	Optional<ButtonType> result = alert.showAndWait(); 
+	    	alert.showAndWait(); 
     	};
 		ImportExportUtility.master.exportQuestionBank(exportHandler);
 	}

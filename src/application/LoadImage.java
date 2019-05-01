@@ -8,6 +8,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * Utility class used to load images.
+ *
+ */
 public class LoadImage extends BorderPane{
 
   EventHandler finishHandler;
