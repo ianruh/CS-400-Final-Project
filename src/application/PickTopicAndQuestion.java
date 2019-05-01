@@ -246,6 +246,7 @@ public class PickTopicAndQuestion extends VBox {
 			// Determine what type of answer was inserted
 			if (correctness.getValue().compareTo("True") == 0) {
 				this.correctAnswer = this.count;
+				correctness.setItems(FXCollections.observableArrayList("False"));
 			} else {
 				this.count++;
 			}
