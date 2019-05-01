@@ -33,16 +33,26 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
+/**
+* StartQuiz class extends a Verticel Box and will be the GUI for the user to pick their 
+* quiz parameters. 
+*/
 public class StartQuiz extends VBox {
 	
 	private EventHandler finishHandler;
 	
+	 /**
+     * The StartQuiz constructo that initiate fields and call method to start the quiz
+     */
 	public StartQuiz(EventHandler finishHandler) {
 		super();
 		this.finishHandler = finishHandler;
 		this.addComponents();
 	}
 
+	 /**
+     * This method will add the the componenets to create the Quiz GUI for the user.
+     */
 	public void addComponents() {
 
 		// Return VBox

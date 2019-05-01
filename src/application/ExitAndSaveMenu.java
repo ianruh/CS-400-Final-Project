@@ -27,24 +27,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
-<<<<<<< HEAD
-/**
- * ExitAndSaveMenu extends a BorderPane and will be the GUI for users to exit the program.
-=======
 
 /**
- * Class the shows the exiting and saving page
- * @author ianruh
->>>>>>> 4d8d6be0cb58eb83a035ef5df91a4c558dae597d
+ * ExitAndSaveMenu extends a BorderPane and will be the GUI for users to exit the program.
  *
  */
 public class ExitAndSaveMenu extends BorderPane {
 
-<<<<<<< HEAD
-  
-=======
   // Handler for what to do if the user wants to cancel.
->>>>>>> 4d8d6be0cb58eb83a035ef5df91a4c558dae597d
+
   private EventHandler cancelHandler;
   
 
