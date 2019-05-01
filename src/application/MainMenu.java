@@ -2,14 +2,19 @@ package application;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -46,12 +51,17 @@ public class MainMenu extends BorderPane {
 		// Start Quiz Button
 		Button buttonStartQuiz = new Button("Start Quiz");
 		buttonStartQuiz.setPrefSize(256, 56);
-
+		
+		// Save Question Bank
+		Button buttonSave = new Button("Save Question Bank");
+		buttonSave.setPrefSize(256, 56);
+		
 		// Exit Button
 		Button buttonExit = new Button("Exit");
 		buttonExit.setPrefSize(256, 56);
 
-		VBox vbox = new VBox(applicationTitle, buttonLoadImport, buttonAddQuestion, buttonStartQuiz, buttonExit);
+		VBox vbox = new VBox(applicationTitle, buttonLoadImport, buttonAddQuestion,
+							 buttonStartQuiz, buttonSave, buttonExit);
 		vbox.setAlignment(Pos.CENTER);
 		vbox.setSpacing(40);
 		this.setCenter(vbox);
@@ -68,6 +78,7 @@ public class MainMenu extends BorderPane {
 		buttonStartQuiz.setOnMouseClicked(e -> this.startQuizPressed());
 		buttonAddQuestion.setOnMouseClicked(e -> this.newQuestionPressed());
 		buttonExit.setOnMouseClicked(e -> this.exitPressed());
+		buttonSave.setOnMouseClicked(e -> this.exportQuestionBank());
 	}
 
 	// Import interaction event
@@ -95,12 +106,24 @@ public class MainMenu extends BorderPane {
 		StartQuiz startQuiz = new StartQuiz(finishHandler);
 		this.setCenter(startQuiz);
 	}
+	
+	// Export Question Bank
+	private void exportQuestionBank() {
+		
+		// Success
+    	EventHandler exportHandler = () -> {
+	    	Alert alert = new Alert(AlertType.INFORMATION);
+	    	alert.setTitle("Success!");
+	    	alert.setHeaderText("Quiz bank successfully exported!");
+	    	Optional<ButtonType> result = alert.showAndWait(); 
+    	};
+		ImportExportUtility.master.exportQuestionBank(exportHandler);
+	}
 
 	// Exit interaction event
 	private void exitPressed() {
 		EventHandler cancelHandler = () -> addComponents();
 		this.setCenter(new ExitAndSaveMenu(cancelHandler));
-
 	}
 
 }
