@@ -2,15 +2,19 @@ package application;
 	
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.UnaryOperator;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -83,7 +87,7 @@ public class StartQuiz extends VBox {
 
 	    // Spacing
 	    Label addSpacing1 =
-	        new Label("\n\n");
+	        new Label("\n");
 	    addSpacing1.setTextAlignment(TextAlignment.CENTER);
 	    mainVBox.getChildren().add(addSpacing1);
 		
@@ -105,8 +109,15 @@ public class StartQuiz extends VBox {
 		hbQuestions.setAlignment(Pos.CENTER);
 		mainVBox.getChildren().add(hbQuestions);
 		
+	    // Spacing
+	    Label addSpacing2 =
+	        new Label("\n");
+	    addSpacing1.setTextAlignment(TextAlignment.CENTER);
+	    mainVBox.getChildren().add(addSpacing2);
+		
 		// Begin Button
 		Button beginButton = new Button("Begin Quiz");
+		beginButton.setMinSize(256, 48);
 		beginButton.setOnMouseClicked(e -> {
 			// Get the selected topics
 			ArrayList<String> selectedTopics = new ArrayList<String>();
@@ -129,6 +140,14 @@ public class StartQuiz extends VBox {
 				});
 				this.getChildren().clear();
 				this.getChildren().add(quiz);
+			} else {
+				// Show alert! 
+		    	Alert alert = new Alert(AlertType.ERROR);
+		    	alert.setTitle("Uh oh!");
+		    	alert.setHeaderText("Unable to start the quiz!");
+		    	alert.setContentText("You must fill in all the necessary information before you can start a" +
+		    						" new quiz. \n\nYou must have:\n\t- Selected a topic(s)\n\t- Entered the desired number of questions.");
+		    	Optional<ButtonType> result = alert.showAndWait(); 
 			}
 		});
 		beginButton.setPrefWidth(156);
@@ -136,6 +155,7 @@ public class StartQuiz extends VBox {
 		
 		// Back Button
 		Button backButton = new Button("Back");
+		backButton.setMinSize(256, 25);
 		backButton.setOnMouseClicked(e -> this.finishHandler.handleEvent());
 		backButton.setPrefWidth(156);
 		mainVBox.getChildren().add(backButton);

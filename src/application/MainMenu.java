@@ -2,14 +2,19 @@ package application;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -20,26 +25,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-
 public class MainMenu extends BorderPane {
 
-  public MainMenu() {
-    addComponents();
-  }
-  
-  private void addComponents() {
-		
-		
-		// TODO: The image doesn't work for everybody for some reason.
-		
-		//create and set the main menu background
-		//	    Image quizBackground = new Image("background3.png", 400, 400, false, true);
-		//	    BackgroundSize bSize =
-		//	        new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
-		//	    Background background = new Background(new BackgroundImage(quizBackground,
-		//	        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bSize));
-		//	    this.setBackground(background);
-		
+	// Default constructor
+	public MainMenu() {
+		addComponents();
+	}
+
+	// Create main page
+	private void addComponents() {
+
 		// Title
 		Label applicationTitle = new Label("Welcome to Quiz Generator!\n ");
 		applicationTitle.setScaleX(4.0);
@@ -56,67 +51,79 @@ public class MainMenu extends BorderPane {
 		// Start Quiz Button
 		Button buttonStartQuiz = new Button("Start Quiz");
 		buttonStartQuiz.setPrefSize(256, 56);
-
+		
+		// Save Question Bank
+		Button buttonSave = new Button("Save Question Bank");
+		buttonSave.setPrefSize(256, 56);
+		
 		// Exit Button
 		Button buttonExit = new Button("Exit");
 		buttonExit.setPrefSize(256, 56);
 
-		VBox vbox = new VBox(applicationTitle, buttonLoadImport, buttonAddQuestion, buttonStartQuiz, buttonExit);
+		VBox vbox = new VBox(applicationTitle, buttonLoadImport, buttonAddQuestion,
+							 buttonStartQuiz, buttonSave, buttonExit);
 		vbox.setAlignment(Pos.CENTER);
 		vbox.setSpacing(40);
 		this.setCenter(vbox);
-		
-		// add a label to the bottom that reports the number of questions in the questionBank
-		Label reportTotalQuestions =
-		    new Label("There are " + QuestionBank.master.getNumQuestions() + " questions in the database");
+
+		// Label presenting total # of questions in bank
+		Label reportTotalQuestions = new Label(
+				"There are " + QuestionBank.master.getNumQuestions() + " questions in the database");
 		reportTotalQuestions.setTextFill(Color.web("#008000"));
 		this.setBottom(reportTotalQuestions);
 		this.setAlignment(reportTotalQuestions, Pos.CENTER);
-		
-		// how to handle the buttons being clicked on, link them to the next screen
-		buttonLoadImport.setOnMouseClicked(e -> this.importPressed());
-	    buttonStartQuiz.setOnMouseClicked(e -> this.startQuizPressed());
-	    buttonAddQuestion.setOnMouseClicked(e -> this.newQuestionPressed());
-	    buttonExit.setOnMouseClicked(e -> this.exitPressed());
-	    //need to load/import questions
 
-	    
-		
-  }
-  
-  private void startQuizPressed() {
-	  EventHandler finishHandler = () -> addComponents();
-	  
-	  StartQuiz startQuiz = new StartQuiz(finishHandler);
-	  this.setCenter(startQuiz);
-  }
-  
-  private void newQuestionPressed() {
-	  EventHandler finishHandler = () -> addComponents();
-	  
-	  ObservableList<String> topics =
-		      FXCollections.observableArrayList(QuestionBank.master.getTopics());
-	  this.setCenter(new PickTopicAndQuestion(topics, finishHandler));
-  }
-  
-  private void exitPressed() {
-    EventHandler cancelHandler = () -> addComponents();    
-    this.setCenter(new ExitAndSaveMenu(cancelHandler));
-    
-  }
-  
-  private void importPressed() {
-    File file = ImportExportUtility.master.selectJSONFile();
-	if(file != null) {
-		List<BasicQuestion> list = ImportExportUtility.master.importQuestions(file);
-		QuestionBank.master.addQuestions(list);
+		// Handle mouse interactions
+		buttonLoadImport.setOnMouseClicked(e -> this.importPressed());
+		buttonStartQuiz.setOnMouseClicked(e -> this.startQuizPressed());
+		buttonAddQuestion.setOnMouseClicked(e -> this.newQuestionPressed());
+		buttonExit.setOnMouseClicked(e -> this.exitPressed());
+		buttonSave.setOnMouseClicked(e -> this.exportQuestionBank());
 	}
-    this.addComponents();
-  }
-  
-  private void exportPressed() {
-    EventHandler finishHandler = () -> addComponents();
-    this.setCenter(new ExportQuestions(finishHandler));
-    
-  }
+
+	// Import interaction event
+	private void importPressed() {
+		File file = ImportExportUtility.master.selectJSONFile();
+		if (file != null) {
+			List<BasicQuestion> list = ImportExportUtility.master.importQuestions(file);
+			QuestionBank.master.addQuestions(list);
+		}
+		this.addComponents();
+	}
+
+	// New question interaction event
+	private void newQuestionPressed() {
+		EventHandler finishHandler = () -> addComponents();
+
+		ObservableList<String> topics = FXCollections.observableArrayList(QuestionBank.master.getTopics());
+
+		this.setCenter(new PickTopicAndQuestion(topics, finishHandler));
+	}
+
+	// Start quiz interaction event
+	private void startQuizPressed() {
+		EventHandler finishHandler = () -> addComponents();
+		StartQuiz startQuiz = new StartQuiz(finishHandler);
+		this.setCenter(startQuiz);
+	}
+	
+	// Export Question Bank
+	private void exportQuestionBank() {
+		
+		// Success
+    	EventHandler exportHandler = () -> {
+	    	Alert alert = new Alert(AlertType.INFORMATION);
+	    	alert.setTitle("Success!");
+	    	alert.setHeaderText("Quiz bank successfully exported!");
+	    	Optional<ButtonType> result = alert.showAndWait(); 
+    	};
+		ImportExportUtility.master.exportQuestionBank(exportHandler);
+	}
+
+	// Exit interaction event
+	private void exitPressed() {
+		EventHandler cancelHandler = () -> addComponents();
+		this.setCenter(new ExitAndSaveMenu(cancelHandler));
+	}
+
 }
