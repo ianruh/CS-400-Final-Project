@@ -1,4 +1,7 @@
+![](https://repository-images.githubusercontent.com/181217148/5f5b3e00-6c41-11e9-8f4f-58750256d84b)
+
 # CS 400 Final Project
+
 The UML Diagram can be viewed in draw.io.
 
 **Course**: CS400
