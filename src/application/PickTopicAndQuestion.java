@@ -238,20 +238,20 @@ public class PickTopicAndQuestion extends VBox {
 		insertButton.setOnMouseClicked(e -> {
 			
 			// Handle Answer Creation
-			if (answerBody.getText() != null && answerBody.getText().length() > 0) {
+			if (answerBody.getText() != null && answerBody.getText().length() > 0 && correctness.getValue() != null) {
 				this.answers.add(answerBody.getText().trim());
-			}
-			answerBody.clear();
-
-			// Determine what type of answer was inserted
-			if (correctness.getValue().compareTo("True") == 0) {
-				this.correctAnswer = this.count;
-				correctness.setItems(FXCollections.observableArrayList("False"));
-			} else {
-				this.count++;
-			}
-			correctness.valueProperty().set(null);
+				answerBody.clear();
 			
+			
+				// Determine what type of answer was inserted
+				if (correctness.getValue().compareTo("True") == 0) {
+					this.correctAnswer = this.count;
+					correctness.setItems(FXCollections.observableArrayList("False"));
+				} else {
+					this.count++;
+				}
+				correctness.valueProperty().set(null);
+			}
 		});
 
 		// Add Answer to super
