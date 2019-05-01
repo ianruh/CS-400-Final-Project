@@ -106,26 +106,24 @@ public class BasicQuestion extends VBox implements Question {
 		
 		try {
 			if(this.imageSource != null && !this.imageSource.equals("none")) {
+				// Load from image url
 				Image image = new Image(this.imageSource);
 				ImageView imageView = new ImageView(image);
-				imageView.maxWidth(200);
-				imageView.maxHeight(200);
+				imageView.setFitHeight(200);
+				imageView.setFitWidth(200);
+				imageView.setPreserveRatio(true);
 				this.getChildren().add(imageView);
-				
-				System.out.println("Load Successful!");
 			} else {
 				// Failed to load exception
-				System.out.println("failed exception");
 				throw new Exception();
 			}
 		} catch (Exception e) {
+			// No valid image file -- load the default image
 			Image image = new Image("place-holder.png");
 			ImageView imageView = new ImageView(image);
-			imageView.maxWidth(200);
-			imageView.maxHeight(200);
+			imageView.setFitHeight(200);
+			imageView.setFitWidth(200);
 			this.getChildren().add(imageView);
-			
-			System.out.println("Load failed! " + (String)this.imageSource);
 		}
 		
 		// Loop through and add each answer

@@ -15,7 +15,6 @@ public class Main extends Application {
 			ImportExportUtility importExport = new ImportExportUtility(primaryStage);
 			QuestionBank questionBank = new QuestionBank();
 			
-			
 			// Set main page title
 			primaryStage.setTitle("Quiz Generator");
 			
@@ -27,12 +26,16 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
 		} catch(Exception e) {
+			
+			// Print any exceptions 
 			e.printStackTrace();
 		}
 	}
 	
 	public static void main(String[] args) {
+		// Launch the application
 		launch(args);
 	}
 }
