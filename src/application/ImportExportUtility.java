@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +75,23 @@ public class ImportExportUtility {
 		 fileChooser.setTitle("Open Resource File");
 		 fileChooser.getExtensionFilters().add(new ExtensionFilter("JSON Files", "*.json"));
 		 return fileChooser.showOpenDialog(primaryStage);
+	}
+	
+	/**
+	 * Shows a dialogue to choose an image file.
+	 * @return the file object, or null if non selected.
+	 * @throws IOException 
+	 */
+	protected String selectIMGFile() {
+		FileChooser fileChooser = new FileChooser();
+		 fileChooser.setTitle("Select Resource File");
+		 fileChooser.getExtensionFilters().add(new ExtensionFilter("PNG Files", "*.png"));
+		 File imageFile = fileChooser.showOpenDialog(primaryStage);
+		 
+		 String winPath  = imageFile.getPath();
+		 String returnPath = winPath.replace("\\", "/");
+		 return returnPath;//Paths.get(winPath).toString();
+		 
 	}
 	
 	/**

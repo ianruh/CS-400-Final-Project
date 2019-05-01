@@ -1,6 +1,9 @@
 package application;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -101,23 +104,28 @@ public class BasicQuestion extends VBox implements Question {
 		topicLabel.getStyleClass().add("topic-label");
 		this.getChildren().add(topicLabel);
 		
-		// Image, if there is one.
 		try {
-			if(this.imageSource != null || !this.imageSource.equals("none")) {
+			if(this.imageSource != null && !this.imageSource.equals("none")) {
 				Image image = new Image(this.imageSource);
 				ImageView imageView = new ImageView(image);
 				imageView.maxWidth(200);
 				imageView.maxHeight(200);
 				this.getChildren().add(imageView);
+				
+				System.out.println("Load Successful!");
 			} else {
-				Image image = new Image("place-holder.png");
-				ImageView imageView = new ImageView(image);
-				imageView.maxWidth(200);
-				imageView.maxHeight(200);
-				this.getChildren().add(imageView);
+				// Failed to load exception
+				System.out.println("failed exception");
+				throw new Exception();
 			}
 		} catch (Exception e) {
-			System.out.println("The image failed to load: " + this.imageSource);
+			Image image = new Image("place-holder.png");
+			ImageView imageView = new ImageView(image);
+			imageView.maxWidth(200);
+			imageView.maxHeight(200);
+			this.getChildren().add(imageView);
+			
+			System.out.println("Load failed! " + (String)this.imageSource);
 		}
 		
 		// Loop through and add each answer
