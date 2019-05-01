@@ -1,13 +1,8 @@
 package application;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -16,7 +11,6 @@ import javafx.scene.layout.VBox;
 
 /**
  * A BasicQuestion implements the question interface and extends a VBox.
- * @author ianruh
  *
  */
 public class BasicQuestion extends VBox implements Question {
@@ -31,7 +25,7 @@ public class BasicQuestion extends VBox implements Question {
 	private String question;
 	
 	// The question topic
-	public String topic;
+	protected String topic;
 	
 	// The source of the image for the question if there is one.
 	private String imageSource;
@@ -104,6 +98,8 @@ public class BasicQuestion extends VBox implements Question {
 		topicLabel.getStyleClass().add("topic-label");
 		this.getChildren().add(topicLabel);
 		
+		// Atempt to load an image from teh given path.
+		// If there isn't one, or it doesn't find the image, shows a placeholder.
 		try {
 			if(this.imageSource != null && !this.imageSource.equals("none")) {
 				// Load from image url
@@ -196,11 +192,18 @@ public class BasicQuestion extends VBox implements Question {
 		return false;
 	}
 	
+	/**
+	 * Overridden hash code in order to use the distinct stream method.
+	 */
 	@Override
 	public int hashCode() {
 		return this.toString().hashCode();
 	}
 	
+	/**
+	 * To string of the question.
+	 * @return String representation.
+	 */
 	@Override
 	public String toString() {
 		String out = "";
@@ -215,10 +218,11 @@ public class BasicQuestion extends VBox implements Question {
 	}
 	
 	/**
-	 * Method used to export the question to json.
-	 * @return
+	 * Method used to export the question to JSON.
+	 * @return JSON object representing the question.
 	 */
-	public JSONObject getJSONObject() {
+	protected JSONObject getJSONObject() {
+		// Add all base properties.
 		JSONObject map = new JSONObject(); 
 		map.put("meta-data", "unused");
 		map.put("questionText", this.question);
@@ -228,6 +232,8 @@ public class BasicQuestion extends VBox implements Question {
 		} else {
 			map.put("image", "none");
 		}
+		
+		// Add all of the images.
 		JSONArray answers = new JSONArray();
 		for(int i = 0; i < this.answers.size(); i++) {
 			JSONObject answer = new JSONObject();

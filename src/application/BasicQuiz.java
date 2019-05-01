@@ -8,14 +8,12 @@ import javafx.scene.layout.VBox;
 
 /**
  * The BasicQuiz class implements the Quiz interface and extends a ScrollPane.
- * @author ianruh
  *
  */
 public class BasicQuiz extends VBox implements Quiz {
 	
 	/**
 	 * The ResultsBox class is convenience class to contain the results box.
-	 * @author ianruh
 	 *
 	 */
 	private class ResultsBox extends VBox {
@@ -34,34 +32,36 @@ public class BasicQuiz extends VBox implements Quiz {
 			HBox labels = new HBox(10);
 			HBox buttons = new HBox(10);
 			
+			// Create the elements
 			Label percentageLabel = new Label("Percentage: " + (((double)numCorrect / (double)total)*100) + "%");
 			Label numRightWrongLabel = new Label(numCorrect + "/" + total);
 			Button finishButton = new Button("Finish");
 			Button newQuizButton = new Button("Make New Quiz");
 			Button saveQuizButton = new Button("Save Quiz");
 			
+			// Add styling
 			percentageLabel.getStyleClass().add("finish-quiz-items");
 			numRightWrongLabel.getStyleClass().add("finish-quiz-items");
 			finishButton.getStyleClass().add("finish-quiz-items");
 			newQuizButton.getStyleClass().add("finish-quiz-items");
 			saveQuizButton.getStyleClass().add("finish-quiz-items");
-			
 			buttons.getStyleClass().add("quiz-finish-buttons");
+			this.getStyleClass().add("question-card");
+			this.setMaxWidth(500);
 			
+			// Attach handlers
 			finishButton.setOnMouseClicked(e -> finishHandler.handleEvent());
 			newQuizButton.setOnMouseClicked(e -> newQuizHandler.handleEvent());
 			saveQuizButton.setOnMouseClicked(e -> saveQuizHandler.handleEvent());
 			
+			// Add components to the main component
 			labels.getChildren().add(percentageLabel);
 			labels.getChildren().add(numRightWrongLabel);
-			
 			buttons.getChildren().add(finishButton);
 			buttons.getChildren().add(newQuizButton);
 			buttons.getChildren().add(saveQuizButton);
 			
-			this.getStyleClass().add("question-card");
-			this.setMaxWidth(500);
-			
+			// Add main containers to this
 			this.getChildren().add(labels);
 			this.getChildren().add(buttons);
 		}
@@ -69,7 +69,6 @@ public class BasicQuiz extends VBox implements Quiz {
 	
 	/**
 	 * Class that encapsulates a bar under each question.
-	 * @author ianruh
 	 *
 	 */
 	private class NextBar extends HBox {
@@ -80,10 +79,16 @@ public class BasicQuiz extends VBox implements Quiz {
 		private NextBar(EventHandler nextHandler) {
 			super(15);
 			Button nextButton = new Button("Next");
+			
+			// Handler
 			nextButton.setOnMouseClicked((e) -> nextHandler.handleEvent());
+			
+			// Styling
 			nextButton.getStyleClass().add("finish-quiz-items");
 			this.getStyleClass().add("question-card");
 			this.setMaxWidth(500);
+			
+			// Add component
 			this.getChildren().add(nextButton);
 		}
 	}
@@ -171,7 +176,6 @@ public class BasicQuiz extends VBox implements Quiz {
 				}
 			}
 			
-			// Place holder until we figure out what it should do.
 			EventHandler saveQuizHandler = () -> {
 				resetQuestions();
 	            ImportExportUtility.master.exportQuiz(this, () -> this.finishHandler.handleEvent());
