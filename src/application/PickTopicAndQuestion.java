@@ -1,3 +1,18 @@
+/**
+ * Final Project. Quiz Generator.
+ *
+ * Filename:   PickTopicAndQuestion
+ * Semester:   Spring 2019
+ * Course:     CS400
+ * 
+ * @author Preston Lewis, ID 9074531329, prlewis@wisc.edu, lecture 004      
+ * @author Jared Krahn, ID 9076949693, jkrahn2@wisc.edu, lecture 004
+ * @author Ian Ruh, ID 9080231591, iruh@wisc.edu, lecture 004
+ * @author Emily Binversie ID 9063469945, eebinversie@wisc.edu, lecture 004
+ *
+ * Due Date:   05/02/2019 at 10pm
+ * 
+ */
 package application;
 
 import java.util.ArrayList;
@@ -23,22 +38,30 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * PickTopicsAndQuestion extends a VBox and is the GUI for creating questions and topics.
+ *
+ */
+
 public class PickTopicAndQuestion extends VBox {
 
-	private ObservableList topics;
+	private ObservableList topics;         
 	private EventHandler finishHandler;
-	private String newTopic;
-	private String newQuestion;
-	private String newAnswer;
-	private String imageURL;
-	private int count;
-	private int correctAnswer;
-	private List<String> answers;
-	private HashMap<String, ArrayList<BasicQuestion>> table;
+	private String newTopic;               // topic name for new question
+	private String newQuestion;            // the new question getting added
+	private String newAnswer;              
+	private String imageURL;               // the image URL of image being added
+	private int count;                     // the number of answers
+	private int correctAnswer;             // the correct answer tracker
+	private List<String> answers;          // list of our answers
+	private HashMap<String, ArrayList<BasicQuestion>> table;   
 
+	/**
+	 * A construcutor to initiate all the fields.
+	 *
+	 */
 	public PickTopicAndQuestion(ObservableList topics, EventHandler finishHandler) {
-		// Create vertical box
-		super(10);
+		super(10);  // Creates vertical box
 		this.table = new HashMap<String, ArrayList<BasicQuestion>>();
 		this.topics = topics;
 		this.count = 0;
@@ -53,6 +76,11 @@ public class PickTopicAndQuestion extends VBox {
 		addComponents(topics);
 	}
 
+	/**
+	 * A method to get all the componments need to create and store a new question from
+	 * the user
+	 *
+	 */
 	private void addComponents(ObservableList topics) {
 		this.getChildren().clear();
 
@@ -109,8 +137,6 @@ public class PickTopicAndQuestion extends VBox {
 			}
 		});
 
-		// Set whether the combobox to unmodifiable if this takes priority
-
 		// add spacing
 		Label addSpacing1 = new Label("\n");
 		addSpacing1.setTextAlignment(TextAlignment.CENTER);
@@ -151,6 +177,7 @@ public class PickTopicAndQuestion extends VBox {
 		Button b1 = new Button("Load Image");
 		b1.setMinWidth(100);
 		Label l1 = new Label("Current Path: " + imageURL);
+		// imports an image when button is clicked
 		b1.setOnAction(e -> {
 			String imageURLPrevious = imageURL;
 			imageURL = ImportExportUtility.master.selectIMGFile();
@@ -189,12 +216,12 @@ public class PickTopicAndQuestion extends VBox {
 		Label answerLabel = new Label("Write a possible answer and choose its correctness.");
 		answerLabel.setTextAlignment(TextAlignment.CENTER);
 		super.getChildren().add(answerLabel);
+		
 		// Insert Answer - Text prompt
 		TextArea answerBody = new TextArea();
 		answerBody.setMaxWidth(280);
 		answerBody.setMaxHeight(25);
 		insertAnswer.getChildren().add(answerBody);
-		// this.newAnswer = answerBody.getText();
 
 		// Insert Answer - True/False
 		ObservableList<String> trueOrFalse = FXCollections.observableArrayList("True", "False");
