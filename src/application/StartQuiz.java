@@ -46,6 +46,7 @@ public class StartQuiz extends VBox {
 	    
 		// Pull  Topics List
 		List<String> topics = QuestionBank.master.getTopics();
+		topics.sort(String.CASE_INSENSITIVE_ORDER);
 		
 	    // "Step 1" Title
 	    Label step1 = new Label("Step 1:");
