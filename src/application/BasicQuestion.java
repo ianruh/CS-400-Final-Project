@@ -51,6 +51,7 @@ public class BasicQuestion extends VBox implements Question {
 	protected boolean answered = false;
 	protected boolean answeredCorrectly = false;
 	protected Label answerCheckLabel = null;
+	protected int index = -1;
 	
 	// Default answer handler
 	EventHandler handler = () -> System.out.println("Question answered handler not set.");
@@ -79,7 +80,7 @@ public class BasicQuestion extends VBox implements Question {
 		this.setMaxWidth(500);
 		
 		// Add all of the components
-		addComponents();
+		this.addComponents(-1);
 	}
 	
 	/**
@@ -88,6 +89,15 @@ public class BasicQuestion extends VBox implements Question {
 	 */
 	protected void addAnsweredHandler(EventHandler handler) {
 		this.handler = handler;
+	}
+	
+	/**
+	 * Method used to set the index handler
+	 */
+	protected void setIndex(int questionIndex) {
+		this.index = questionIndex+1;
+		this.getChildren().clear();
+		this.addComponents(index);
 	}
 	
 	/**
@@ -104,9 +114,9 @@ public class BasicQuestion extends VBox implements Question {
 	/**
 	 * Utility method to add all of the components to the node.
 	 */
-	private void addComponents() {
+	private void addComponents(int questionIndex) {
 		// Question text
-		Label questionLabel = new Label(this.question);
+		Label questionLabel = new Label(questionIndex + ". " + this.question);
 		questionLabel.getStyleClass().add("question-text");
 		this.getChildren().add(questionLabel);
 		
@@ -238,6 +248,7 @@ public class BasicQuestion extends VBox implements Question {
 	 * Method used to export the question to JSON.
 	 * @return JSON object representing the question.
 	 */
+	@SuppressWarnings("unchecked")
 	protected JSONObject getJSONObject() {
 		// Add all base properties.
 		JSONObject map = new JSONObject(); 
