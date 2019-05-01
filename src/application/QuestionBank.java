@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 /**
  * Class that stores all of the questions in the quiz generator.
- * @author ianruh
  *
  */
 public class QuestionBank {
@@ -26,16 +25,13 @@ public class QuestionBank {
 	public QuestionBank() {
 		QuestionBank.master = this;
 		this.table = new HashMap<String, ArrayList<BasicQuestion>>();
-		
-		// TODO Remove this. Just adds some sample questions.
-		this.addQuestions(QuestionBank.getQuestions());
 	}
 	
 	/**
 	 * Adds a question to the bank.
 	 * @param newQuestion Question to add
 	 */
-	public void addQuestion(BasicQuestion newQuestion) {
+	protected void addQuestion(BasicQuestion newQuestion) {
 		if(!this.getTopics().contains(newQuestion.topic)) {
 			this.table.put(newQuestion.topic, new ArrayList<BasicQuestion>());
 		}
@@ -46,7 +42,7 @@ public class QuestionBank {
 	 * Adds a list of question to the bank.
 	 * @param questions Question to be added.
 	 */
-	public void addQuestions(List<BasicQuestion> questions) {
+	protected void addQuestions(List<BasicQuestion> questions) {
 		for(BasicQuestion question: questions) {
 			this.addQuestion(question);
 		}
@@ -59,7 +55,7 @@ public class QuestionBank {
 	 * @param topics
 	 * @return The list of questions in the quiz.
 	 */
-	public List<BasicQuestion> getNewQuiz(int numQuestion, List<String> topics) {
+	protected List<BasicQuestion> getNewQuiz(int numQuestion, List<String> topics) {
 		ArrayList<BasicQuestion> fullSet = new ArrayList<BasicQuestion>();
 		for(String topic: topics) {
 			if(this.getTopics().contains(topic))
@@ -76,7 +72,7 @@ public class QuestionBank {
 	 * Get the keys that are in the question bank.
 	 * @return A list of the keys.
 	 */
-	public List<String> getTopics() {
+	protected List<String> getTopics() {
 		List<String> list = this.convertSetToList(this.table.keySet());
 		Collections.sort(list);
 		return list;
@@ -99,7 +95,7 @@ public class QuestionBank {
 	 * Method to get the number of questions in the question bank.
 	 * @return the number of questions in the question bank.
 	 */
-	public int getNumQuestions() {
+	protected int getNumQuestions() {
 		int sum = 0;
 		for(ArrayList<BasicQuestion> list: this.table.values()) {
 			sum += list.size();
@@ -111,7 +107,7 @@ public class QuestionBank {
 	 * Method to get all of the questions in the question bank.
 	 * @return A list of all of the questions.
 	 */
-	public List<BasicQuestion> getAllQuestions() {
+	protected List<BasicQuestion> getAllQuestions() {
 		ArrayList<BasicQuestion> allQuestions = new ArrayList<BasicQuestion>();
 		for(List<BasicQuestion> list: this.table.values()) {
 			allQuestions.addAll(list);
@@ -120,10 +116,11 @@ public class QuestionBank {
 	}
 	
 	/**
-	 * Get some sample questions.
+	 * Get some sample questions. Is not used in production, but can be called from
+	 * the constructor to add samples.
 	 * @return
 	 */
-	public static List<BasicQuestion> getQuestions() {
+	protected static List<BasicQuestion> getQuestions() {
 		///////////////////////// Sample Data ///////////////////////////
 				
 		// Question 1
@@ -154,6 +151,7 @@ public class QuestionBank {
 			+ "consequat ipsum eu urna consectetur, nec bibendum augue cursus. Ut viverra fringilla luctus. Vivamus nec "
 			+ "tincidunt est. Curabitur volutpat maximus felis ut vestibulum. HINT: It's true", answers3, 0, "Topic Three", "none");
 		
+		// Create the list
 		ArrayList<BasicQuestion> questions = new ArrayList<BasicQuestion>();
 		questions.add(question1);
 		questions.add(question2);

@@ -4,42 +4,42 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
- * A utility class to import and export json objects.
- * 
- * @author ianruh
+ * A utility class to import and export JSON objects.
  *
  */
 public class ImportExportUtility {
-	// The stage used to display the popups
+	// The stage used to display the pop-ups
 	protected Stage primaryStage;
 
 	// The singleton instance with the stage
-	public static ImportExportUtility master;
+	protected static ImportExportUtility master;
 
 	/**
 	 * Constructor that should only be called once.
 	 * 
 	 * @param primaryStage
 	 */
-	public ImportExportUtility(Stage primaryStage) {
+	protected ImportExportUtility(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		ImportExportUtility.master = this;
 	}
 
+	
+	/**
+	 * Utility method for opening and writing to a file.
+	 * @param content Content to be written.
+	 * @param file File to write to.
+	 */
 	private void saveFile(String content, File file) {
 		// Attempt save
 		try {
@@ -54,6 +54,11 @@ public class ImportExportUtility {
 
 	}
 
+	/**
+	 * Method called to open a dialog to save a file.
+	 * @param text Text of the file to save.
+	 * @param handler Handler the finish.
+	 */
 	protected void saveDialogue(String text, EventHandler handler) {
 		FileChooser fileChooser = new FileChooser();
 		
