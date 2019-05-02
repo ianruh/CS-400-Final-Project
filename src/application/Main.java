@@ -19,8 +19,15 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
+/**
+ * Main method that launchs the GUI for the user to interact with. 
+ */
 public class Main extends Application {
   
+  /**
+   * Starts the GUI by setting the layout as an instance of MainMenu
+   * @param Stage primaryStage
+   */
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -49,6 +56,10 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * Method that launchs the application
+	 * @param String[] args
+	 */
 	public static void main(String[] args) {
 		// Launch the application
 		launch(args);
