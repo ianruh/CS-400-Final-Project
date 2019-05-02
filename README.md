@@ -18,6 +18,5 @@ The UML Diagram can be viewed in draw.io.
 
 Notes or comments to the grader:
 
-[place any comments or notes that will help the grader here]
-
+Program should function according to the criteria on the rubric. 
 
